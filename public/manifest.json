@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "AI Prpmpter",
+    "version": "0.1",
+    "description": "AI helper",
+    "action": {
+      "default_popup": "index.html"
+    },
+    "background": {
+        "service_worker": "sample.js"
+    },    
+    "permissions": [
+        "contextMenus"
+    ]
+}
