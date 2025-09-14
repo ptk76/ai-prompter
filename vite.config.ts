@@ -14,12 +14,38 @@ export default defineConfig({
       ],
     }),
   ],
+  esbuild: {
+    // pure: ["console.log"], // example: have esbuild remove any console.log
+    minifyIdentifiers: false, // but keep variable names
+    minifySyntax: false,
+  },
   build: {
     outDir: "build",
+    minify: "esbuild",
+    modulePreload: { polyfill: false },
     rollupOptions: {
       input: {
-        main: "./index.html",
+        worker: "./worker.html",
+        page: "./page.html",
+      },
+      output: {
+        assetFileNames: (file) => {
+          console.log("ass", file.name);
+          return "assets/[name].[ext]";
+        },
+        chunkFileNames: (file) => {
+          console.log("chun", file.name);
+          return "assets/[name].js";
+        },
+
+        entryFileNames: (file) => {
+          console.log("entry", file.name);
+          return "assets/[name].js";
+        },
       },
     },
+  },
+  server: {
+    open: "/toolbar.html",
   },
 });
