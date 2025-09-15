@@ -1,5 +1,3 @@
-import { closeToolbar } from "../page/page";
-
 const urlProplexity = "https://www.perplexity.ai/search";
 
 function openNewTab(url: URL) {
@@ -13,11 +11,6 @@ export const onTranslate = (text: string) => {
   openNewTab(url);
   if (chrome.tabs) chrome.tabs.create({ url: url.href });
   else window.open(url, "_blank")?.focus();
-};
-
-export const onCopy = (text: string) => {
-  navigator.clipboard.writeText(text);
-  closeToolbar();
 };
 
 export const onRephrase = (text: string) => {

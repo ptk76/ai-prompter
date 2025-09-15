@@ -1,15 +1,13 @@
 {
-    "manifest_version": 3,
-    "name": "AI Prompter",
-    "version": "0.1",
-    "description": "AI helper",
-    "action": {
-      "default_popup": "index.html"
-    },
-    "background": {
-        "service_worker": "/assets/worker.js"
-    },    
-    "permissions": [
-        "contextMenus"
-    ]
+  "manifest_version": 3,
+  "name": "Arete",
+  "version": "0.1",
+  "description": "AI Prompter",
+  "content_scripts": [
+    {
+      "js": ["/page.js"],
+      "matches": ["https://*/*", "https://*/"]
+    }
+  ],
+  "permissions": ["contextMenus"]
 }

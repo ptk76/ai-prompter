@@ -25,7 +25,8 @@ export default defineConfig({
     modulePreload: { polyfill: false },
     rollupOptions: {
       input: {
-        worker: "./worker.html",
+        // index: "./index.html",
+        // worker: "./worker.html",
         page: "./page.html",
       },
       output: {
@@ -40,12 +41,12 @@ export default defineConfig({
 
         entryFileNames: (file) => {
           console.log("entry", file.name);
-          return "assets/[name].js";
+          return "[name].js";
         },
       },
     },
   },
   server: {
-    open: "/toolbar.html",
+    open: "/page.html",
   },
 });

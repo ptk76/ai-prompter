@@ -1,4 +1,4 @@
-import { closeToolbar } from "../page/page";
+import { closeToolbar } from "./page";
 
 const urlProplexity = "https://www.perplexity.ai/search";
 
@@ -34,4 +34,12 @@ export const onSummarize = (text: string) => {
 
 export const onGrammarly = (text: string) => {
   console.log("onGrammarly", text);
+};
+
+export type ActionCallbacks = {
+  onCopy: () => void;
+  onRephrase: () => void;
+  onGrammarly: () => void;
+  onSummarize: () => void;
+  onTranslate: () => void;
 };
