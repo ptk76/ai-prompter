@@ -1,22 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import type { ActionCallbacks } from "./actions";
-
-const styleContainer = {
-  width: "fit-content",
-  display: "flex",
-  alignItems: "center",
-  padding: "12px 16px",
-  gap: "12px",
-  background: "rgba(28, 28, 30, 0.95)",
-  color: "rgba(255, 255, 255, 0.95)",
-  borderColor: "rgba(255, 255, 255, 0.15)",
-  borderRadius: "12px",
-  backdropFilter: "blur(20px)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  fontSize: "16px",
-};
+import { styleContainer } from "./ToolboxCss";
+import Button from "./Button";
 
 function Toolbar(props: {
   x: number;
@@ -25,29 +11,42 @@ function Toolbar(props: {
   onCopy: () => void;
   onRephrase: () => void;
   onSummarize: () => void;
-  onGrammarly: () => void;
+  onPerplexity: () => void;
+  onSearch: () => void;
 }) {
-  const offsetX = Math.max(0, props.x - 100 / 2);
-  const offsetY = props.y + 10;
   return (
     <>
       <div
-        className="containerArete"
         style={{
-          ...{
-            top: offsetY.toString() + "px",
-            left: offsetX.toString() + "px",
-            position: "absolute",
-            wordBreak: "normal",
-          },
           ...styleContainer,
+          ...{
+            top: props.y.toString() + "px",
+            left: props.x.toString() + "px",
+          },
         }}
       >
-        <button onClick={props.onTranslate}>Translate</button>
-        <button onClick={props.onCopy}>Copy</button>
-        <button onClick={props.onRephrase}>Rephrase</button>
-        <button onClick={props.onSummarize}>Summarize</button>
-        <button onClick={props.onGrammarly}>Grammarly</button>
+        <Button
+          label="Translate"
+          icon={"📋"}
+          callback={props.onTranslate}
+        ></Button>
+        <Button label="Copy" icon={"⚡"} callback={props.onCopy}></Button>
+        <Button label="Search" icon={"🔍"} callback={props.onSearch}></Button>
+        <Button
+          label="Rephrase"
+          icon={"⚡"}
+          callback={props.onRephrase}
+        ></Button>
+        <Button
+          label="Summarize"
+          icon={"⚙️"}
+          callback={props.onSummarize}
+        ></Button>
+        <Button
+          label="Perplexity"
+          icon={"🔮"}
+          callback={props.onPerplexity}
+        ></Button>
       </div>
     </>
   );
@@ -71,7 +70,8 @@ export function createToolbar(
         onCopy={cb.onCopy}
         onRephrase={cb.onRephrase}
         onSummarize={cb.onSummarize}
-        onGrammarly={cb.onGrammarly}
+        onPerplexity={cb.onGrammarly}
+        onSearch={cb.onRephrase}
       />
     </StrictMode>
   );

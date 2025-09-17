@@ -61,5 +61,5 @@ document.onmouseup = (ev) => {
       onTranslate(selectedText);
     },
   };
-  createToolbar(rootNode, ev.clientX, ev.clientY, cb);
+  createToolbar(rootNode, ev.layerX, ev.layerY, cb);
 };
