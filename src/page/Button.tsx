@@ -14,7 +14,10 @@ function Button(props: { label: string; icon: any; callback: () => void }) {
         style={hover ? { ...styleButton, ...styleButtonOnHover } : styleButton}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onClick={props.callback}
+        onClick={(ev) => {
+          ev.stopPropagation();
+          props.callback();
+        }}
       >
         <span style={styleIcon}>{props.icon}</span>
         <span style={styleLabel}>{props.label}</span>

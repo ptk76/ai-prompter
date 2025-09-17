@@ -9,7 +9,12 @@ import {
 } from "./actions";
 
 const rootNodeId = "arete-ai-prompter-root";
-const rootNode = document.createElement("div");
+const rootNode = document.createElement("arete-ai-prompter-root");
+const shadow = rootNode.attachShadow({ mode: "open" });
+const node = document.createElement("div");
+shadow.appendChild(node);
+document.body.append(rootNode);
+
 rootNode.id = rootNodeId;
 rootNode.style.position = "absolute";
 rootNode.style.zIndex = "1000";
@@ -42,7 +47,7 @@ document.onmouseup = (ev) => {
   const selectedText = selection.toString();
   if (!selectedText || selectedText === "") return;
 
-  target.append(rootNode);
+  document.body.append(rootNode);
 
   const cb: ActionCallbacks = {
     onCopy: () => {
@@ -61,5 +66,5 @@ document.onmouseup = (ev) => {
       onTranslate(selectedText);
     },
   };
-  createToolbar(rootNode, ev.layerX, ev.layerY, cb);
+  createToolbar(node, ev.pageX, ev.pageY, cb);
 };

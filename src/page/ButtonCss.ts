@@ -1,5 +1,4 @@
 export const styleButton: React.CSSProperties = {
-  //   all: "initial",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -14,21 +13,19 @@ export const styleButton: React.CSSProperties = {
 };
 
 export const styleIcon: React.CSSProperties = {
-  //   all: "initial",
   fontSize: "20px",
   marginBottom: "4px",
   lineHeight: 1,
 };
 
 export const styleLabel: React.CSSProperties = {
-  //   all: "initial",
   fontSize: "11px",
   fontWeight: 600,
   color: "#333",
   textAlign: "center",
   lineHeight: 1.2,
   fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;",
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
 };
 
 export const styleButtonOnHover: React.CSSProperties = {
