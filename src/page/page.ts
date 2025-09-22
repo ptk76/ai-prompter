@@ -1,7 +1,7 @@
 import { createToolbar } from "./Toolbar";
 import {
   onCopy,
-  onRephrase,
+  onSearch,
   onGrammarly,
   onSummarize,
   onTranslate,
@@ -53,8 +53,8 @@ document.onmouseup = (ev) => {
     onCopy: () => {
       onCopy(selectedText);
     },
-    onRephrase: () => {
-      onRephrase(selectedText);
+    onSearch: () => {
+      onSearch(selectedText);
     },
     onGrammarly: () => {
       onGrammarly(selectedText);

@@ -4,16 +4,7 @@ import type { ActionCallbacks } from "./actions";
 import { styleContainer } from "./ToolboxCss";
 import Button from "./Button";
 
-function Toolbar(props: {
-  x: number;
-  y: number;
-  onTranslate: () => void;
-  onCopy: () => void;
-  onRephrase: () => void;
-  onSummarize: () => void;
-  onPerplexity: () => void;
-  onSearch: () => void;
-}) {
+function Toolbar(props: { x: number; y: number; cb: ActionCallbacks }) {
   return (
     <>
       <div
@@ -25,27 +16,26 @@ function Toolbar(props: {
           },
         }}
       >
+        <Button label="Copy" icon={"📋"} callback={props.cb.onCopy}></Button>
         <Button
-          label="Translate"
-          icon={"📋"}
-          callback={props.onTranslate}
-        ></Button>
-        <Button label="Copy" icon={"⚡"} callback={props.onCopy}></Button>
-        <Button label="Search" icon={"🔍"} callback={props.onSearch}></Button>
-        <Button
-          label="Rephrase"
-          icon={"⚡"}
-          callback={props.onRephrase}
-        ></Button>
-        <Button
-          label="Summarize"
-          icon={"⚙️"}
-          callback={props.onSummarize}
+          label="Search"
+          icon={"🔍"}
+          callback={props.cb.onSearch}
         ></Button>
         <Button
           label="Perplexity"
           icon={"🔮"}
-          callback={props.onPerplexity}
+          callback={props.cb.onSummarize}
+        ></Button>
+        <Button
+          label="Custom"
+          icon={"⚡"}
+          callback={props.cb.onTranslate}
+        ></Button>
+        <Button
+          label="Settings"
+          icon={"⚙️"}
+          callback={props.cb.onSummarize}
         ></Button>
       </div>
     </>
@@ -63,16 +53,7 @@ export function createToolbar(
   if (!rootNode) rootNode = createRoot(node);
   rootNode.render(
     <StrictMode>
-      <Toolbar
-        x={x}
-        y={y}
-        onTranslate={cb.onTranslate}
-        onCopy={cb.onCopy}
-        onRephrase={cb.onRephrase}
-        onSummarize={cb.onSummarize}
-        onPerplexity={cb.onGrammarly}
-        onSearch={cb.onRephrase}
-      />
+      <Toolbar x={x} y={y} cb={cb} />
     </StrictMode>
   );
 }
