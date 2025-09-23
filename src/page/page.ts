@@ -1,4 +1,5 @@
 import { createToolbar } from "./Toolbar";
+import { globalStyle } from "./ToolbarCss";
 import {
   onCopy,
   onSearch,
@@ -10,16 +11,23 @@ import {
 
 const rootNodeId = "arete-ai-prompter-root";
 const rootNode = document.createElement("arete-ai-prompter-root");
-const shadow = rootNode.attachShadow({ mode: "open" });
-const node = document.createElement("div");
-shadow.appendChild(node);
-document.body.append(rootNode);
-
 rootNode.id = rootNodeId;
 rootNode.style.position = "absolute";
 rootNode.style.zIndex = "1000";
 rootNode.style.top = "0px";
 rootNode.style.left = "0px";
+document.body.append(rootNode);
+
+console.log(document.body.getElementsByTagName("style"));
+
+const shadow = rootNode.attachShadow({ mode: "open" });
+
+const style = document.createElement("style");
+style.appendChild(document.createTextNode(globalStyle));
+shadow.appendChild(style);
+
+const node = document.createElement("div");
+shadow.appendChild(node);
 
 function isAiPrompter(element: HTMLElement | null, depth = 0) {
   if (depth === 5) return false;

@@ -7,7 +7,6 @@ export const styleButton: React.CSSProperties = {
   cursor: "pointer",
   transition: "all 0.2s ease",
   minWidth: "50px",
-  background: "transparent",
   border: "none",
   fontFamily: "inherit",
 };
@@ -21,14 +20,8 @@ export const styleIcon: React.CSSProperties = {
 export const styleLabel: React.CSSProperties = {
   fontSize: "11px",
   fontWeight: 600,
-  color: "#333",
   textAlign: "center",
   lineHeight: 1.2,
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-};
-
-export const styleButtonOnHover: React.CSSProperties = {
-  background: "rgba(0, 0, 0, 0.08)",
-  transform: "translateY(-2px)",
 };

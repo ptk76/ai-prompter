@@ -1,13 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import type { ActionCallbacks } from "./actions";
-import { styleContainer } from "./ToolboxCss";
+import { styleContainer } from "./ToolbarCss";
 import Button from "./Button";
 
 function Toolbar(props: { x: number; y: number; cb: ActionCallbacks }) {
   return (
     <>
       <div
+        className="toolbar"
         style={{
           ...styleContainer,
           ...{
