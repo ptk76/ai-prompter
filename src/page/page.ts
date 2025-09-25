@@ -16,6 +16,7 @@ rootNode.style.position = "absolute";
 rootNode.style.zIndex = "1000";
 rootNode.style.top = "0px";
 rootNode.style.left = "0px";
+rootNode.style.userSelect = "none";
 document.body.append(rootNode);
 
 console.log(document.body.getElementsByTagName("style"));
