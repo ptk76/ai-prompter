@@ -13,8 +13,6 @@ export const onTranslate = (text: string) => {
   url.searchParams.set("q", `Translate the text into Polish: ${text}`);
   openNewTab(url);
   closeToolbar();
-  if (chrome.tabs) chrome.tabs.create({ url: url.href });
-  else window.open(url, "_blank")?.focus();
 };
 
 export const onCopy = (text: string) => {

@@ -5,9 +5,20 @@
   "description": "AI Prompter",
   "content_scripts": [
     {
-      "js": ["/page.js"],
+      "js": ["/content_script.js"],
       "matches": ["https://*/*", "https://*/"]
     }
   ],
-  "permissions": ["contextMenus"]
+  "permissions": ["contextMenus"],
+  "background": {
+    "service_worker": "/worker.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*.png", "assets/*.svg", "assets/*.js"],
+      "matches": ["https://*/*", "file://*/*"],
+      "html": ["/settings.html"]
+    }
+  ]
 }

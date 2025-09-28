@@ -19,8 +19,6 @@ rootNode.style.left = "0px";
 rootNode.style.userSelect = "none";
 document.body.append(rootNode);
 
-console.log(document.body.getElementsByTagName("style"));
-
 const shadow = rootNode.attachShadow({ mode: "open" });
 
 const style = document.createElement("style");
