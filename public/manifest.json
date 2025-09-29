@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Arete",
   "version": "0.1",
-  "description": "AI Prompter",
+  "description": "Connect selected text to ChatGPT, Claude & Perplexity instantly. No copy-paste needed - just select and go.",
   "content_scripts": [
     {
       "js": ["/content_script.js"],
