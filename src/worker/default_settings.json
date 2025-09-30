@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "buttons": [
+    {
+      "id": 0,
+      "icon": "📋",
+      "label": "Copy",
+      "url": "COPY",
+      "type": "copy",
+      "disabled": false
+    },
+    {
+      "id": 1,
+      "icon": "🔍",
+      "label": "Search",
+      "url": "https://www.google.com/search?q=%s",
+      "type": "custom",
+      "disabled": false
+    },
+    {
+      "id": 2,
+      "icon": "🔮",
+      "label": "Perplexity",
+      "url": "https://www.perplexity.ai/search?q=\"Translate the text into Polish: %s\"",
+      "type": "custom",
+      "disabled": false
+    },
+    {
+      "id": 3,
+      "icon": "⚡",
+      "label": "Custom",
+      "url": "https://www.perplexity.ai/search?q=\"Summarize the text: %s\"",
+      "type": "custom",
+      "disabled": false
+    },
+    {
+      "id": 4,
+      "icon": "⚙️",
+      "label": "Settings",
+      "url": "SETTINGS",
+      "type": "settings",
+      "disabled": false
+    }
+  ]
+}
