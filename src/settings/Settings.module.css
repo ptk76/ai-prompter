@@ -2,3 +2,6 @@
   display: flex;
   flex-direction: column;
 }
+.add{
+  width: 50px;
+}

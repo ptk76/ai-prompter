@@ -1,6 +1,35 @@
+import { useState, type ChangeEvent } from "react";
 import style from "./Actions.module.css";
+import type { SettingsButtonType } from "../storage/settings";
 
-function Action(props: { icon: any; name: string; url: string }) {
+function Action(props: {
+  button: SettingsButtonType;
+  save: (button: SettingsButtonType) => void;
+}) {
+  const [buttonProps, setButtonProps] = useState(props.button);
+
+  const saveButton = (button: SettingsButtonType) => {
+    setButtonProps(button);
+    props.save(button);
+  };
+  const onIconChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    let newButtonProps = buttonProps;
+    newButtonProps.icon = ev.target.value;
+    saveButton(newButtonProps);
+  };
+
+  const onLabelChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    let newButtonProps = buttonProps;
+    newButtonProps.label = ev.target.value;
+    saveButton(newButtonProps);
+  };
+
+  const onUrlChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    let newButtonProps = buttonProps;
+    newButtonProps.url = ev.target.value;
+    saveButton(newButtonProps);
+  };
+
   return (
     <>
       <div className={style.item}>
@@ -10,7 +39,8 @@ function Action(props: { icon: any; name: string; url: string }) {
           id="icon"
           name="icon"
           required
-          defaultValue={props.icon}
+          defaultValue={buttonProps.icon}
+          onChange={(ev) => onIconChange(ev)}
         />
       </div>
       <div className={style.item}>
@@ -20,7 +50,8 @@ function Action(props: { icon: any; name: string; url: string }) {
           id="name"
           name="name"
           required
-          defaultValue={props.name}
+          defaultValue={buttonProps.label}
+          onChange={(ev) => onLabelChange(ev)}
         />
       </div>
       <div className={style.item}>
@@ -30,10 +61,13 @@ function Action(props: { icon: any; name: string; url: string }) {
           id="url"
           name="url"
           required
-          defaultValue={props.url}
+          defaultValue={buttonProps.url}
+          onChange={(ev) => onUrlChange(ev)}
         />
       </div>
-      <button>Remove</button>
+      <button className={style.remove} disabled>
+        🗑️
+      </button>
     </>
   );
 }

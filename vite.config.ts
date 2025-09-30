@@ -53,6 +53,6 @@ export default defineConfig({
     },
   },
   server: {
-    open: "/page.html",
+    open: "/settings.html",
   },
 });
