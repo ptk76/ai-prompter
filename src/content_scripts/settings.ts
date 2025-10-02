@@ -34,10 +34,10 @@ class Settings {
   }
 }
 
-async function getButtons() {
+async function getSettingButtons() {
   const storage = new Storage();
   const setting = new Settings(storage);
   return await setting.getButtons();
 }
 
-export default getButtons;
+export default getSettingButtons;

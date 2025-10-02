@@ -1,7 +1,7 @@
 import Actions from "./actions";
 import type { ButtonProps } from "./button";
 import createToolbar from "./toolbar";
-import getButtons from "./settings";
+import getSettingButtons from "./settings";
 
 const rootNodeId = "arete-ai-prompter-root";
 const rootNode = document.createElement("arete-ai-prompter-root");
@@ -30,6 +30,16 @@ document.onmousedown = (ev) => {
   closeToolbar();
 };
 
+async function getButtons() {
+  const settingButtons = await getSettingButtons();
+  if (settingButtons.length === 5) {
+    const responce = await chrome.runtime.sendMessage({ type: "fix-settings" });
+    if (responce !== "settings-ready") return [];
+    return await getSettingButtons();
+  }
+  return settingButtons;
+}
+
 document.onmouseup = async (ev) => {
   const target = ev.target as HTMLElement;
   if (isAiPrompter(target)) return;
@@ -40,6 +50,7 @@ document.onmouseup = async (ev) => {
   if (!selectedText || selectedText === "") return;
 
   const settingButtons = await getButtons();
+  if (settingButtons.length === 0) return;
 
   let buttons: ButtonProps[] = [];
   for (const button of settingButtons) {
