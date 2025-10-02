@@ -1,5 +1,4 @@
 import Storage from "./storage";
-import defaultSettings from "./settings_def.json";
 
 export type SettingsButtonType = {
   id: number;
@@ -15,50 +14,30 @@ export type SettingsType = {
   buttons: SettingsButtonType[];
 };
 
-class SettingDatabase {
+class Settings {
   private storage: Storage;
-  private settings: SettingsType = defaultSettings;
-  private saveInProgress = -1;
 
-  constructor() {
-    this.storage = new Storage();
+  constructor(storage: Storage) {
+    this.storage = storage;
   }
-  async init() {
+
+  async getButtons(): Promise<SettingsButtonType[]> {
     const settingFile = await this.storage.get("settings");
-    if (!settingFile) {
-      this.storage.set("settings", JSON.stringify(defaultSettings));
-    } else {
-      this.settings = JSON.parse(settingFile);
-      if (this.settings.version != defaultSettings.version) {
-        // TO DO - converter
-        this.settings = defaultSettings;
-      }
-    }
-  }
+    if (!settingFile) return [];
 
-  save(delay = 5000) {
-    if (this.saveInProgress != -1) clearTimeout(this.saveInProgress);
-    this.saveInProgress = setTimeout(() => {
-      this.storage.set("settings", JSON.stringify(this.settings));
-      this.saveInProgress = -1;
-    }, delay);
-  }
-
-  getButtons() {
-    return this.settings.buttons;
-  }
-
-  setButton(newButton: SettingsButtonType) {
-    for (let button of this.settings.buttons) {
-      console.log("BUTTON", button.id, button.label);
-      if (button.id === newButton.id) {
-        button = newButton;
-        console.log("NEW", button, this.settings);
-        this.save();
-        return;
-      }
+    try {
+      const settings = JSON.parse(settingFile);
+      return settings.buttons;
+    } catch (_) {
+      return [];
     }
   }
 }
 
-export default SettingDatabase;
+async function getButtons() {
+  const storage = new Storage();
+  const setting = new Settings(storage);
+  return await setting.getButtons();
+}
+
+export default getButtons;

@@ -1,7 +1,7 @@
 import Actions from "./actions";
 import type { ButtonProps } from "./button";
 import createToolbar from "./toolbar";
-import SettingDatabase from "./settings";
+import getButtons from "./settings";
 
 const rootNodeId = "arete-ai-prompter-root";
 const rootNode = document.createElement("arete-ai-prompter-root");
@@ -39,11 +39,10 @@ document.onmouseup = async (ev) => {
   const selectedText = selection.toString();
   if (!selectedText || selectedText === "") return;
 
-  const settings = new SettingDatabase();
-  await settings.init();
+  const settingButtons = await getButtons();
 
   let buttons: ButtonProps[] = [];
-  for (const button of settings.getButtons()) {
+  for (const button of settingButtons) {
     buttons.push({
       icon: button.icon,
       label: button.label,

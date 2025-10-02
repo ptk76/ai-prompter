@@ -1,7 +1,6 @@
 import getDefaultSettings from "./default_settings";
 
 chrome.runtime.onInstalled.addListener(async (details: any) => {
-  console.log("START", details.reason);
   const settings = getDefaultSettings();
   if (details.reason === "install") {
     settings.install();

@@ -1,4 +1,5 @@
 import Button, { type ButtonProps } from "./button";
+import { globalStyle } from "./global.css";
 
 class Toolbar {
   private rootNode: HTMLDivElement;
@@ -18,46 +19,6 @@ class Toolbar {
     return this.rootNode;
   }
 }
-// function Toolbar(props: { x: number; y: number; cb: ActionCallbacksType }) {
-//   return (
-//     <>
-//       <div
-//         className="toolbar"
-//         style={{
-//           ...styleContainer,
-//           ...{
-//             top: props.y.toString() + "px",
-//             left: props.x.toString() + "px",
-//           },
-//         }}
-//       >
-//         <Button label="Copy" icon={"📋"} callback={props.cb.onCopy}></Button>
-//         <Button
-//           label="Search"
-//           icon={"🔍"}
-//           callback={props.cb.onSearch}
-//         ></Button>
-//         <Button
-//           label="Perplexity"
-//           icon={"🔮"}
-//           callback={props.cb.onSummarize}
-//         ></Button>
-//         <Button
-//           label="Custom"
-//           icon={"⚡"}
-//           callback={props.cb.onTranslate}
-//         ></Button>
-//         <Button
-//           label="Settings"
-//           icon={"⚙️"}
-//           callback={props.cb.onSettings}
-//         ></Button>
-//       </div>
-//     </>
-//   );
-// }
-
-import { globalStyle } from "./global.css";
 
 function createToolbar(
   shadow: any,
