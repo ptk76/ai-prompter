@@ -1,5 +1,4 @@
 import Storage from "./storage";
-import defaultSettings from "./settings_def.json";
 
 export type SettingsButtonType = {
   id: number;
@@ -15,25 +14,17 @@ export type SettingsType = {
   buttons: SettingsButtonType[];
 };
 
-class SettingDatabase {
+class Settings {
   private storage: Storage;
-  private settings: SettingsType = defaultSettings;
+  private settings: SettingsType | null = null;
   private saveInProgress = -1;
 
-  constructor() {
-    this.storage = new Storage();
+  constructor(storage: Storage) {
+    this.storage = storage;
   }
   async init() {
     const settingFile = await this.storage.get("settings");
-    if (!settingFile) {
-      this.storage.set("settings", JSON.stringify(defaultSettings));
-    } else {
-      this.settings = JSON.parse(settingFile);
-      if (this.settings.version != defaultSettings.version) {
-        // TO DO - converter
-        this.settings = defaultSettings;
-      }
-    }
+    if (settingFile) this.settings = JSON.parse(settingFile);
   }
 
   save(delay = 5000) {
@@ -45,20 +36,26 @@ class SettingDatabase {
   }
 
   getButtons() {
-    return this.settings.buttons;
+    if (!!!this.settings) return null;
+    return this.settings?.buttons;
   }
 
   setButton(newButton: SettingsButtonType) {
-    for (let button of this.settings.buttons) {
-      console.log("BUTTON", button.id, button.label);
+    for (let button of this.settings!.buttons) {
       if (button.id === newButton.id) {
         button = newButton;
-        console.log("NEW", button, this.settings);
         this.save();
         return;
       }
     }
   }
+
+  static async getInstance() {
+    const storage = new Storage();
+    const settings = new Settings(storage);
+    await settings.init();
+    return settings;
+  }
 }
 
-export default SettingDatabase;
+export default Settings;

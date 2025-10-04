@@ -32,42 +32,44 @@ function Action(props: {
 
   return (
     <>
-      <div className={style.item}>
-        <label>Icon:</label>
-        <input
-          type="text"
-          id="icon"
-          name="icon"
-          required
-          defaultValue={buttonProps.icon}
-          onChange={(ev) => onIconChange(ev)}
-        />
+      <div className={style.section}>
+        <div className={style.item}>
+          <label>Icon:</label>
+          <input
+            type="text"
+            id="icon"
+            name="icon"
+            required
+            defaultValue={buttonProps.icon}
+            onChange={(ev) => onIconChange(ev)}
+          />
+        </div>
+        <div className={style.item}>
+          <label>Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            defaultValue={buttonProps.label}
+            onChange={(ev) => onLabelChange(ev)}
+          />
+        </div>
+        <div className={style.item}>
+          <label>URL:</label>
+          <input
+            type="text"
+            id="url"
+            name="url"
+            required
+            defaultValue={buttonProps.url}
+            onChange={(ev) => onUrlChange(ev)}
+          />
+        </div>
+        <button className={style.remove} disabled>
+          🗑️
+        </button>
       </div>
-      <div className={style.item}>
-        <label>Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          defaultValue={buttonProps.label}
-          onChange={(ev) => onLabelChange(ev)}
-        />
-      </div>
-      <div className={style.item}>
-        <label>URL:</label>
-        <input
-          type="text"
-          id="url"
-          name="url"
-          required
-          defaultValue={buttonProps.url}
-          onChange={(ev) => onUrlChange(ev)}
-        />
-      </div>
-      <button className={style.remove} disabled>
-        🗑️
-      </button>
     </>
   );
 }

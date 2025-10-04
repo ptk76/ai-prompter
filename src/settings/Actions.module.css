@@ -10,3 +10,14 @@
 .remove {
   width: 50px;
 }
+
+
+.section {
+  background: rgba(248, 249, 250, 0.8);
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+}
