@@ -20,6 +20,12 @@ function isAiPrompter(element: HTMLElement | null, depth = 0) {
   return isAiPrompter(element.parentElement, depth + 1);
 }
 
+async function doNotShow() {
+  const tab = await chrome.tabs.getCurrent();
+  if (tab?.url?.includes("docs.google.com/spreadsheets")) return true;
+  return false;
+}
+
 export function closeToolbar() {
   rootNode.remove();
   shadowRoot.innerHTML = "";
@@ -48,6 +54,8 @@ document.onmouseup = async (ev) => {
 
   const selectedText = selection.toString();
   if (!selectedText || selectedText === "") return;
+
+  if (await doNotShow()) return;
 
   const settingButtons = await getButtons();
   if (settingButtons.length === 0) return;
