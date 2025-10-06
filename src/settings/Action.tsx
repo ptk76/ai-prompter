@@ -1,6 +1,8 @@
-import { useState, type ChangeEvent } from "react";
-import style from "./Actions.module.css";
+import { useState } from "react";
+import style from "./Action.module.css";
 import type { SettingsButtonType } from "../storage/settings";
+import TextInput from "./TextInput";
+import ActionHeader from "./ActionHeader";
 
 function Action(props: {
   button: SettingsButtonType;
@@ -12,63 +14,63 @@ function Action(props: {
     setButtonProps(button);
     props.save(button);
   };
-  const onIconChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    let newButtonProps = buttonProps;
-    newButtonProps.icon = ev.target.value;
-    saveButton(newButtonProps);
+  // const onIconChange = (value: string) => {
+  //   let newButtonProps = buttonProps;
+  //   newButtonProps.icon = value;
+  //   saveButton(newButtonProps);
+  // };
+
+  const onLabelChange = (value: string) => {
+    saveButton({ ...buttonProps, label: value });
   };
 
-  const onLabelChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    let newButtonProps = buttonProps;
-    newButtonProps.label = ev.target.value;
-    saveButton(newButtonProps);
+  const onUrlChange = (value: string) => {
+    saveButton({ ...buttonProps, url: value });
   };
 
-  const onUrlChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    let newButtonProps = buttonProps;
-    newButtonProps.url = ev.target.value;
-    saveButton(newButtonProps);
+  const onStatusChange = () => {
+    saveButton({ ...buttonProps, disabled: !buttonProps.disabled });
   };
+
+  const onIconCHange = (icon: string) => {
+    saveButton({ ...buttonProps, icon: icon });
+  };
+
+  const isSpecialAction =
+    buttonProps.type == "copy" || buttonProps.type == "settings";
+  const hint = isSpecialAction
+    ? "This action doesn't require a URL"
+    : "URL with %s in place of query";
+  const url = isSpecialAction ? "No URL needed" : buttonProps.url;
 
   return (
     <>
-      <div className={style.section}>
-        <div className={style.item}>
-          <label>Icon:</label>
-          <input
-            type="text"
-            id="icon"
-            name="icon"
-            required
-            defaultValue={buttonProps.icon}
-            onChange={(ev) => onIconChange(ev)}
-          />
+      <div className={style.action}>
+        <ActionHeader
+          index={buttonProps.id + 1}
+          icon={buttonProps.icon}
+          disabled={buttonProps.disabled}
+          onStatusChange={onStatusChange}
+          onIconChange={onIconCHange}
+        />
+        <div className={buttonProps.disabled ? style.blur : ""}>
+          <div className={style.inputGroup}>
+            <TextInput
+              label="Name:"
+              onChange={onLabelChange}
+              defaultValue={buttonProps.label}
+              placeholder="Action name"
+            />
+            <TextInput
+              label="URL:"
+              onChange={onUrlChange}
+              defaultValue={url}
+              hint={hint}
+              disabled={isSpecialAction}
+            />
+          </div>
         </div>
-        <div className={style.item}>
-          <label>Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            defaultValue={buttonProps.label}
-            onChange={(ev) => onLabelChange(ev)}
-          />
-        </div>
-        <div className={style.item}>
-          <label>URL:</label>
-          <input
-            type="text"
-            id="url"
-            name="url"
-            required
-            defaultValue={buttonProps.url}
-            onChange={(ev) => onUrlChange(ev)}
-          />
-        </div>
-        <button className={style.remove} disabled>
-          🗑️
-        </button>
+        {buttonProps.disabled && <div className={style.overlay} />}
       </div>
     </>
   );

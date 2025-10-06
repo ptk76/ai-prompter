@@ -41,13 +41,9 @@ class Settings {
   }
 
   setButton(newButton: SettingsButtonType) {
-    for (let button of this.settings!.buttons) {
-      if (button.id === newButton.id) {
-        button = newButton;
-        this.save();
-        return;
-      }
-    }
+    if (!!!this.settings) return;
+    this.settings.buttons[newButton.id] = newButton;
+    this.save(1000);
   }
 
   static async getInstance() {

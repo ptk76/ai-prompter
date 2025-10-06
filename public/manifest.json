@@ -20,5 +20,6 @@
       "matches": ["https://*/*", "file://*/*"],
       "html": ["/settings.html"]
     }
-  ]
+  ],
+  "action": {}
 }

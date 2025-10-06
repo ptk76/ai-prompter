@@ -5,7 +5,7 @@
       "id": 0,
       "icon": "📋",
       "label": "Copy",
-      "url": "COPY",
+      "url": "",
       "type": "copy",
       "disabled": false
     },
@@ -37,7 +37,7 @@
       "id": 4,
       "icon": "⚙️",
       "label": "Settings",
-      "url": "SETTINGS",
+      "url": "",
       "type": "settings",
       "disabled": false
     }

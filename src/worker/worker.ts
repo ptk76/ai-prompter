@@ -11,12 +11,17 @@ chrome.runtime.onInstalled.addListener(async (details: any) => {
 });
 
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
-  if (request.type == "open-settings") {
+  if (request.type === "open-settings") {
     chrome.tabs.create({ url: chrome.runtime.getURL("/settings.html") });
     sendResponse();
-  } else if (request.type == "fix-settings") {
+  } else if (request.type === "fix-settings") {
     const settings = getDefaultSettings();
+
     settings.install();
     sendResponse("settings-ready");
   }
+});
+
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("/settings.html") });
 });

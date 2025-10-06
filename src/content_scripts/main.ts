@@ -32,7 +32,7 @@ document.onmousedown = (ev) => {
 
 async function getButtons() {
   const settingButtons = await getSettingButtons();
-  if (settingButtons.length === 5) {
+  if (settingButtons.length === 0) {
     const responce = await chrome.runtime.sendMessage({ type: "fix-settings" });
     if (responce !== "settings-ready") return [];
     return await getSettingButtons();
@@ -54,6 +54,7 @@ document.onmouseup = async (ev) => {
 
   let buttons: ButtonProps[] = [];
   for (const button of settingButtons) {
+    if (button.disabled) continue;
     buttons.push({
       icon: button.icon,
       label: button.label,
