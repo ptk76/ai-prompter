@@ -15,7 +15,9 @@ class Actions {
   };
 
   static openUrl(url: string, text: string) {
-    if (url.includes("%s")) {
+    if (url === "") {
+      Actions.onSettings();
+    } else if (url.includes("%s")) {
       const finalUrl = url.replace("%s", encodeURI(text));
       openNewTab(new URL(finalUrl));
     }

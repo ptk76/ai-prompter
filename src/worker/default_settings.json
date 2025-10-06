@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "buttons": [
     {
       "id": 0,
@@ -29,7 +29,7 @@
       "id": 3,
       "icon": "⚡",
       "label": "Custom",
-      "url": "https://www.perplexity.ai/search?q=\"Summarize the text: %s\"",
+      "url": "",
       "type": "custom",
       "disabled": false
     },
