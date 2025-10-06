@@ -68,3 +68,7 @@ document.onmouseup = async (ev) => {
   document.body.append(rootNode);
   createToolbar(shadowRoot, ev.pageX, ev.pageY, buttons);
 };
+
+document.onkeydown = () => {
+  closeToolbar();
+};
