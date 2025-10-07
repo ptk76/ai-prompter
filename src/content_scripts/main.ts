@@ -22,7 +22,8 @@ function isAiPrompter(element: HTMLElement | null, depth = 0) {
 
 async function doNotShow() {
   const tab = await chrome.tabs.getCurrent();
-  if (tab?.url?.includes("docs.google.com/spreadsheets")) return true;
+  if (window.location.href.includes("docs.google.com/spreadsheets"))
+    return true;
   return false;
 }
 
