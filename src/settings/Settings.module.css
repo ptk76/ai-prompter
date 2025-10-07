@@ -39,3 +39,61 @@ body {
   letter-spacing: 0.02em;
   text-align: center;
 }
+
+
+.inspiration {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.inspirationText {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #555;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.inspirationLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #000;
+  color: white;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inspiratioNote {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #666;
+  background: rgba(248, 249, 250, 0.9);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.inspirationCode {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #e91e63;
+}

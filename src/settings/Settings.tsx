@@ -50,7 +50,30 @@ function SettingsUI() {
             ➕
           </button>
         </Section>
-        <Section title="💡 Action Ideas & Inspiration"></Section>
+        <Section title="💡 Action Ideas & Inspiration">
+          <div className={style.inspiration}>
+            <div className={style.inspirationText}>
+              Looking for inspiration? We've curated{" "}
+              <strong>35+ ready-to-use action examples</strong> to supercharge
+              your productivity!
+            </div>
+            <a
+              className={style.inspirationLink}
+              href="https://docs.google.com/spreadsheets/u/1/d/1XFcvmtswakEDZLuwDPC9M0w99UEHyLKHbWB60qzSVFI/"
+              target="blank"
+            >
+              ✨ Browse 35+ Action Examples →
+            </a>
+            <p className={style.inspiratioNote}>
+              💡 <strong>Pro Tip:</strong> Use{" "}
+              <code className={style.inspirationCode}>%s</code> in URLs as a
+              placeholder for your selected text. Example:{" "}
+              <code className={style.inspirationCode}>
+                https://claude.ai/new?q=Translate to English: %s
+              </code>
+            </p>
+          </div>
+        </Section>
         <Section title="❓ Help & Support"></Section>
         <Section title="">
           © 2025 Arete - Smart text selection with instant AI actions. All
