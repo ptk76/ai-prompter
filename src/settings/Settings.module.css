@@ -74,6 +74,12 @@ body {
   margin-right: auto;
 }
 
+.inspirationLink:hover {
+  transform: translateY(-2px);
+  background: #333;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
 .inspiratioNote {
   margin: 0;
   box-sizing: border-box;
@@ -96,4 +102,10 @@ body {
   font-family: 'Courier New', monospace;
   font-size: 13px;
   color: #e91e63;
+}
+
+.copyright {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
 }

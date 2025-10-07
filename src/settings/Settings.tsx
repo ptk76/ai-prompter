@@ -38,7 +38,7 @@ function SettingsUI() {
   return (
     <>
       <div className={style.settings}>
-        <Section>
+        <Section style={{ padding: "20px" }}>
           <div className={style.title}>arete</div>
           <div className={style.subtitle}>
             Smart text selection with instant AI actions
@@ -74,11 +74,27 @@ function SettingsUI() {
             </p>
           </div>
         </Section>
-        <Section title="❓ Help & Support"></Section>
-        <Section title="">
-          © 2025 Arete - Smart text selection with instant AI actions. All
-          rights reserved. <br />
-          Made with ❤️ for better text productivity
+        <Section title="❓ Help & Support">
+          <div className={style.inspiration}>
+            <div className={style.inspirationText}>
+              Need help configuring Arete? Have questions or suggestions?
+              <br />
+              We're here to help you get the most out of your text assistant!
+            </div>
+            <a
+              className={style.inspirationLink}
+              href="mailto:getarete@gmail.com"
+            >
+              📧 getarete@gmail.com
+            </a>
+          </div>
+        </Section>
+        <Section style={{ padding: "20px" }}>
+          <div className={style.copyright}>
+            © 2025 Arete - Smart text selection with instant AI actions. All
+            rights reserved. <br />
+            Made with ❤️ for better text productivity
+          </div>
         </Section>
       </div>
     </>
