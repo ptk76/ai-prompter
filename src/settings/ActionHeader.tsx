@@ -10,7 +10,6 @@ function ActionHeader(props: {
   disabled: boolean;
   onStatusChange: () => void;
   onIconChange: (icon: string) => void;
-  showIconSelector: (show: boolean) => void;
 }) {
   const getStatusIcon = (disabled: boolean) => (disabled ? "🙈" : "👁️");
   const [icon, setIcon] = useState(props.icon);

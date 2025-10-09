@@ -4,13 +4,8 @@ import Settings from "../storage/settings";
 import { type SettingsButtonType } from "../storage/settings";
 import style from "./Settings.module.css";
 import Section from "./Section";
-import PopupLayer from "./PopupLayer";
-import IconSelector from "./IconSelector";
-import { createPortal } from "react-dom";
-
 function SettingsUI() {
   const [settings, setSettings] = useState<Settings | null>(null);
-  const [overlay, setOverlay] = useState(false);
   const setupDatabase = async () => {
     setSettings(await Settings.getInstance());
   };
@@ -33,11 +28,18 @@ function SettingsUI() {
           key={button.id.toString()}
           button={button}
           save={saveButton}
-          showIconSelector={setOverlay}
         ></Action>
       );
     }
     return <>{result}</>;
+  };
+
+  const reset = async () => {
+    setSettings(null);
+    await chrome.runtime.sendMessage({
+      type: "fix-settings",
+    });
+    setupDatabase();
   };
 
   return (
@@ -51,9 +53,20 @@ function SettingsUI() {
         </Section>
         <Section title="⚙️ Edit Tooltip Actions">
           {settings && getButtons(settings.getButtons())}
-          <button className={style.add} disabled>
-            ➕
-          </button>
+          <div className={style.buttons}>
+            <button
+              className={style.settingButton + " " + style.toLeft}
+              disabled
+            >
+              ➕ Add Custom
+            </button>
+            <button
+              className={style.settingButton + " " + style.toRight}
+              onClick={reset}
+            >
+              🔄 Reset to Default Settings
+            </button>
+          </div>
         </Section>
         <Section title="💡 Action Ideas & Inspiration">
           <div className={style.inspiration}>
