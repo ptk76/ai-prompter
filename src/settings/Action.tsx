@@ -7,6 +7,7 @@ import ActionHeader from "./ActionHeader";
 function Action(props: {
   button: SettingsButtonType;
   save: (button: SettingsButtonType) => void;
+  showIconSelector: (show: boolean) => void;
 }) {
   const [buttonProps, setButtonProps] = useState(props.button);
 
@@ -52,6 +53,7 @@ function Action(props: {
           disabled={buttonProps.disabled}
           onStatusChange={onStatusChange}
           onIconChange={onIconCHange}
+          showIconSelector={props.showIconSelector}
         />
         <div className={buttonProps.disabled ? style.blur : ""}>
           <div className={style.inputGroup}>

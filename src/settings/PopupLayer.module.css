@@ -1,0 +1,14 @@
+.popupLayer {
+  position: fixed;
+  display: flex;
+  background-color: #00000080;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
+
+.container {
+  width: fit-content;
+  margin: auto;
+}

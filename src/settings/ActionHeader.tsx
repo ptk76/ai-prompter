@@ -1,5 +1,8 @@
 import { useState } from "react";
 import style from "./ActionHeader.module.css";
+import PopupLayer from "./PopupLayer";
+import IconSelector from "./IconSelector";
+import { createPortal } from "react-dom";
 
 function ActionHeader(props: {
   index: number;
@@ -7,11 +10,23 @@ function ActionHeader(props: {
   disabled: boolean;
   onStatusChange: () => void;
   onIconChange: (icon: string) => void;
+  showIconSelector: (show: boolean) => void;
 }) {
-  const getCurrentIcon = (disabled: boolean) => (disabled ? "🙈" : "👁️");
-  const [icon, setIcon] = useState(getCurrentIcon(props.disabled));
+  const getStatusIcon = (disabled: boolean) => (disabled ? "🙈" : "👁️");
+  const [icon, setIcon] = useState(props.icon);
+  const [statusIcon, setStatusIcon] = useState(getStatusIcon(props.disabled));
+  const [overlay, setOverlay] = useState(false);
+
+  const setNewIcon = (icon: string) => {
+    props.onIconChange(icon);
+    setIcon(icon);
+  };
+  const onIcon = () => {
+    setOverlay(true);
+  };
+
   const onClick = () => {
-    setIcon(getCurrentIcon(icon === "👁️"));
+    setStatusIcon(getStatusIcon(statusIcon === "👁️"));
     props.onStatusChange();
   };
   return (
@@ -19,12 +34,21 @@ function ActionHeader(props: {
       <div className={style.header}>
         <div className={props.disabled ? style.blur : style.noBlur}>
           <div className={style.index}>{props.index}</div>
-          <button className={style.icon}>{props.icon}</button>{" "}
+          <button className={style.icon} onClick={onIcon}>
+            {icon}
+          </button>{" "}
         </div>
         <button className={style.hide} onClick={onClick}>
-          {icon}
+          {statusIcon}
         </button>
       </div>
+      {overlay &&
+        createPortal(
+          <PopupLayer onClose={() => setOverlay(false)}>
+            <IconSelector onNewIcon={setNewIcon} />
+          </PopupLayer>,
+          document.getElementById("overlay")!
+        )}
     </>
   );
 }
