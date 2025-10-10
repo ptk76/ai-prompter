@@ -2,10 +2,8 @@ export const globalStyle = `
   .toolbar{
     position: absolute;
     width: fit-content;
-    word-break: normal;
     backdrop-filter: blur(20px);
     border-radius: 16px;
-    padding: 8px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -13,11 +11,25 @@ export const globalStyle = `
     z-index: 1000;
     animation: tooltipAppear 0.3s ease-out forwards;
 
-    font-size: 19px;
     font-family: system-ui;
       
     background: rgba(255, 255, 255, 0.98);
     border: 2px solid #000;
+  }
+
+  .icon{
+    font-size: 23px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .buttonContainer {
+    font-size: 19px;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    gap: 4px;
+    word-break: normal;
   }
 
   .label{
@@ -29,9 +41,10 @@ export const globalStyle = `
   }
 
   .icon {
-    font-size: 20px;
-    margin-bottom: 4px;
+    font-size: 18px;
+    margin: 0px 6px 4px;
     line-height: 1;
+    cursor: pointer;
   }
 
   button{
@@ -62,5 +75,8 @@ export const globalStyle = `
   }
   button:hover{
     background: rgba(255, 255, 255, 0.1);
+  }
+  .icon{
+    color: white;
   }
 }`;

@@ -46,7 +46,7 @@ async function getButtons() {
   return settingButtons;
 }
 
-document.onmouseup = async (ev) => {
+document.onmouseup = async (ev: MouseEvent) => {
   const target = ev.target as HTMLElement;
   if (isAiPrompter(target)) return;
   const selection = window.getSelection();
@@ -74,7 +74,12 @@ document.onmouseup = async (ev) => {
     });
   }
   document.body.append(rootNode);
-  createToolbar(shadowRoot, ev.pageX, ev.pageY, buttons);
+  const iconOnly =
+    target.nodeName === "INPUT" || target.nodeName === "TEXTAREA";
+  const targetBox = target.getBoundingClientRect();
+  const x = iconOnly ? targetBox.x + targetBox.width - 30 : ev.pageX;
+  const y = iconOnly ? targetBox.y + 4 : ev.pageY;
+  createToolbar(shadowRoot, x, y, buttons, iconOnly);
 };
 
 document.onkeydown = () => {
