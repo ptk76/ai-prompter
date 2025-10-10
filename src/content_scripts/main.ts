@@ -77,8 +77,8 @@ document.onmouseup = async (ev: MouseEvent) => {
   const iconOnly =
     target.nodeName === "INPUT" || target.nodeName === "TEXTAREA";
   const targetBox = target.getBoundingClientRect();
-  const x = iconOnly ? targetBox.x + targetBox.width - 30 : ev.pageX;
-  const y = iconOnly ? targetBox.y + 4 : ev.pageY;
+  const x = iconOnly ? targetBox.right - 30 : ev.pageX;
+  const y = iconOnly ? window.scrollY + targetBox.top + 4 : ev.pageY;
   createToolbar(shadowRoot, x, y, buttons, iconOnly);
 };
 
