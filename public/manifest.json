@@ -9,7 +9,7 @@
       "matches": ["https://*/*", "https://*/"]
     }
   ],
-  "permissions": ["contextMenus", "storage"],
+  "permissions": ["contextMenus", "tabs", "storage"],
   "background": {
     "service_worker": "/worker.js",
     "type": "module"

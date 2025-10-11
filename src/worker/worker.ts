@@ -10,9 +10,9 @@ chrome.runtime.onInstalled.addListener(async (details: any) => {
   return true;
 });
 
-chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (request, _, sendResponse) => {
   if (request.type === "open-settings") {
-    chrome.tabs.create({ url: chrome.runtime.getURL("/settings.html") });
+    openSettingPage();
     sendResponse();
   } else if (request.type === "fix-settings") {
     const settings = getDefaultSettings();
@@ -23,5 +23,33 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 });
 
 chrome.action.onClicked.addListener(() => {
-  chrome.tabs.create({ url: chrome.runtime.getURL("/settings.html") });
+  openSettingPage();
 });
+
+function getSettingTabId(windowId: number | undefined) {
+  if (windowId === undefined) return -1;
+  return new Promise<number>(async (resolve) => {
+    const tabs = await chrome.tabs.query({ windowId: windowId });
+    for (const tab of tabs) {
+      console.log("TAB", tab, chrome.runtime.getURL(""));
+      if (tab.url?.includes(chrome.runtime.getURL(""))) {
+        chrome.windows.update(windowId, { focused: true });
+        const id: number = tab.id ? tab.id : -1;
+        chrome.tabs.update(id, { active: true });
+        resolve(id);
+        return;
+      }
+    }
+    resolve(-1);
+  });
+}
+
+async function openSettingPage() {
+  const windows = await chrome.windows.getAll();
+
+  for (const window of windows) {
+    const settingTabId = await getSettingTabId(window.id);
+    if (settingTabId !== -1) return;
+  }
+  chrome.tabs.create({ url: chrome.runtime.getURL("/settings.html") });
+}
