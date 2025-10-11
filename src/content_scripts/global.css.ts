@@ -2,7 +2,6 @@ export const globalStyle = `
   .toolbar{
     position: absolute;
     width: fit-content;
-    backdrop-filter: blur(20px);
     border-radius: 16px;
     display: flex;
     align-items: center;

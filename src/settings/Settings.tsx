@@ -4,6 +4,7 @@ import Settings from "../storage/settings";
 import { type SettingsButtonType } from "../storage/settings";
 import style from "./Settings.module.css";
 import Section from "./Section";
+import DragAndDrop from "./DragAndDrop";
 function SettingsUI() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const setupDatabase = async () => {
@@ -19,7 +20,7 @@ function SettingsUI() {
   };
 
   const getButtons = (buttons: SettingsButtonType[] | null) => {
-    if (!buttons) return <></>;
+    if (!buttons) return [];
 
     let result = [];
     for (const button of buttons) {
@@ -31,7 +32,7 @@ function SettingsUI() {
         ></Action>
       );
     }
-    return <>{result}</>;
+    return result;
   };
 
   const reset = async () => {
@@ -52,7 +53,9 @@ function SettingsUI() {
           </div>
         </Section>
         <Section title="⚙️ Edit Tooltip Actions">
-          {settings && getButtons(settings.getButtons())}
+          {settings && (
+            <DragAndDrop>{getButtons(settings.getButtons())}</DragAndDrop>
+          )}
           <div className={style.buttons}>
             <button
               className={style.settingButton + " " + style.toLeft}

@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  margin-bottom: 15px;
 }
 
 .inputGroup {
@@ -66,3 +67,19 @@
   display: flex;
 }
 
+.dragHandle {
+  font-size: 20px;
+  color: #999;
+  cursor: grab;
+  padding: 8px;
+  border-radius: 4px;
+  user-select: none;
+  transition: all 0.2s ease;
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+.dragHandle:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}

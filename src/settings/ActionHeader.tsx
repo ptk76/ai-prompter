@@ -40,6 +40,7 @@ function ActionHeader(props: {
         <button className={style.hide} onClick={onClick}>
           {statusIcon}
         </button>
+        <div className={style.dragHandle}>⋮⋮</div>
       </div>
       {overlay &&
         createPortal(
