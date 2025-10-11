@@ -36,6 +36,29 @@ class Toolbar {
   get() {
     return this.rootNode;
   }
+
+  setOffset(rect: DOMRect) {
+    const PADDING = 10;
+    const offsetX =
+      rect.right + PADDING > window.innerWidth
+        ? window.innerWidth - rect.right - PADDING
+        : rect.x - PADDING < 0
+        ? -rect.x + PADDING
+        : 0;
+    const offsetY =
+      rect.bottom + PADDING > window.innerHeight
+        ? window.innerHeight - rect.bottom - PADDING
+        : rect.y - PADDING < 0
+        ? -rect.y + PADDING
+        : 0;
+    if (offsetX !== 0 || offsetY !== 0) {
+      this.rootNode.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
+  }
+
+  setOpacity() {
+    this.rootNode.style.opacity = "1";
+  }
 }
 
 function createToolbar(
@@ -48,7 +71,10 @@ function createToolbar(
   const style = document.createElement("style");
   style.appendChild(document.createTextNode(globalStyle));
   shadow.appendChild(style);
-  shadow.appendChild(new Toolbar(x, y, buttons, iconOnly).get());
+  const toolbar = new Toolbar(x, y, buttons, iconOnly);
+  const toolbarNode = shadow.appendChild(toolbar.get());
+  toolbar.setOffset(toolbarNode.getBoundingClientRect());
+  toolbar.setOpacity();
 }
 
 export default createToolbar;

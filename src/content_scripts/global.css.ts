@@ -9,11 +9,13 @@ export const globalStyle = `
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
     z-index: 1000;
     animation: tooltipAppear 0.3s ease-out forwards;
+    transition-duration: 0.3s;
 
     font-family: system-ui;
       
     background: rgba(255, 255, 255, 0.98);
     border: 2px solid #000;
+    opacity: 0;
   }
 
   .icon{
