@@ -37,13 +37,25 @@ class Settings {
 
   getButtons() {
     if (!!!this.settings) return null;
-    return this.settings?.buttons;
+    return this.settings.buttons;
   }
 
   setButton(newButton: SettingsButtonType) {
     if (!!!this.settings) return;
     this.settings.buttons[newButton.id] = newButton;
     this.save(1000);
+  }
+
+  reorder(startIndex: number, endIndex: number) {
+    if (!!!this.settings) return;
+    const newOrder = Array.from(this.settings.buttons);
+    const [removed] = newOrder.splice(startIndex, 1);
+    newOrder.splice(endIndex, 0, removed);
+    this.settings.buttons = newOrder.map((button, index) => {
+      button.id = index;
+      return button;
+    });
+    this.save(0);
   }
 
   static async getInstance() {

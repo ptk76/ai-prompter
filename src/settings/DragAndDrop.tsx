@@ -17,7 +17,10 @@ const getItemStyle = (draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-function DragAndDrop(props: { children: JSX.Element[] }) {
+function DragAndDrop(props: {
+  children: JSX.Element[];
+  onReorder: (startIndex: number, endIndex: number) => void;
+}) {
   const [items, setItems] = useState<JSX.Element[]>(props.children);
 
   const onDragEnd = (result: any) => {
@@ -25,7 +28,17 @@ function DragAndDrop(props: { children: JSX.Element[] }) {
     if (!result.destination) {
       return;
     }
-    setItems(reorder(items, result.source.index, result.destination.index));
+    const newOrder = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    );
+    const newItems = newOrder.map((item, index) => {
+      item.props.button.id = index;
+      return item;
+    });
+    setItems(newItems);
+    props.onReorder(result.source.index, result.destination.index);
   };
 
   return (

@@ -35,6 +35,10 @@ function SettingsUI() {
     return result;
   };
 
+  const reorder = (startIndex: number, endIndex: number) => {
+    settings?.reorder(startIndex, endIndex);
+  };
+
   const reset = async () => {
     setSettings(null);
     await chrome.runtime.sendMessage({
@@ -54,7 +58,9 @@ function SettingsUI() {
         </Section>
         <Section title="⚙️ Edit Tooltip Actions">
           {settings && (
-            <DragAndDrop>{getButtons(settings.getButtons())}</DragAndDrop>
+            <DragAndDrop onReorder={reorder}>
+              {getButtons(settings.getButtons())}
+            </DragAndDrop>
           )}
           <div className={style.buttons}>
             <button
