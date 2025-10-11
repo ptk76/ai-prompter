@@ -73,6 +73,7 @@ document.onmouseup = async (ev: MouseEvent) => {
       },
     });
   }
+  if (buttons.length === 0) return;
   document.body.append(rootNode);
   const iconOnly =
     target.nodeName === "INPUT" || target.nodeName === "TEXTAREA";
