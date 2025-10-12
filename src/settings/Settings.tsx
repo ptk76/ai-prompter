@@ -96,7 +96,7 @@ function SettingsUI() {
               <code className={style.inspirationCode}>%s</code> in URLs as a
               placeholder for your selected text. Example:{" "}
               <code className={style.inspirationCode}>
-                https://claude.ai/new?q=Translate to English: %s
+                https://www.perplexity.ai/search?q="Translate the text into Spanish: %s"
               </code>
             </p>
           </div>
