@@ -38,7 +38,7 @@ class Toolbar {
   }
 
   setOffset(rect: DOMRect) {
-    const PADDING = 10;
+    const PADDING = 20;
     const offsetX =
       rect.right + PADDING > window.innerWidth
         ? window.innerWidth - rect.right - PADDING
