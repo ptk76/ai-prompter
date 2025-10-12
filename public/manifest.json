@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Arete",
   "version": "0.1",
-  "description": "Connect selected text to ChatGPT, Claude & Perplexity instantly. No copy-paste needed - just select and go.",
+  "description": "Select text to instantly prompt ChatGPT/Perplexity, search with your favorite engine, or copy - all with one click.",
   "content_scripts": [
     {
       "js": ["/content_script.js"],
