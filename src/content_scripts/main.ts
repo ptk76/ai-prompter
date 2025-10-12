@@ -59,14 +59,24 @@ class AreteRootNode {
     if (buttons.length === 0) return;
     document.body.append(rootNode);
 
-    const iconOnly =
-      targetHitCopy.nodeName === "INPUT" ||
-      targetHitCopy.nodeName === "TEXTAREA";
+    const iconOnly = this.isEditField(targetHitCopy);
     const targetBox = targetHitCopy.getBoundingClientRect();
     const x = iconOnly ? targetBox.right - 30 : ev.pageX;
     const y = iconOnly ? window.scrollY + targetBox.top + 4 : ev.pageY;
 
     createToolbar(this.root, x, y, buttons, iconOnly);
+  }
+
+  private isEditField(target: HTMLElement) {
+    if (target.nodeName === "INPUT" || target.nodeName === "TEXTAREA")
+      return true;
+
+    const isEditable = (target: HTMLElement, index: number = 0) => {
+      if (target.contentEditable === "true") return true;
+      if (!!!target.parentElement) return false;
+      return isEditable(target.parentElement, index + 1);
+    };
+    return isEditable(target);
   }
 
   private isAiPrompter(element: HTMLElement | null, depth = 0): boolean {
