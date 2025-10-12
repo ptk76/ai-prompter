@@ -21,5 +21,8 @@
       "html": ["/settings.html"]
     }
   ],
-  "action": {}
+  "action": {},
+  "icons": {
+    "128": "arete.png"
+  }
 }
