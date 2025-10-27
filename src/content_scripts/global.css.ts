@@ -18,6 +18,26 @@ export const globalStyle = `
     opacity: 0;
   }
 
+  .hint{
+    position: absolute;
+    width: fit-content;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    animation: tooltipAppear 0.3s ease-out forwards;
+    transition-duration: 0.3s;
+
+    font-family: system-ui;
+    font-size: 10px;
+    padding: 5px 10px;
+
+    background: rgba(255, 255, 255, 0.98);
+    border: 2px solid #000;
+  }
+
   .icon{
     font-size: 23px;
     font-weight: bold;
@@ -70,6 +90,11 @@ export const globalStyle = `
   .toolbar{
     background: rgba(30, 30, 30, 0.98);
     border-color: #333;
+  }
+  .hint{
+    background: rgba(30, 30, 30, 0.98);
+    border-color: #333;
+    color: white;
   }
   .label{
     color: #fff;

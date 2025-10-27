@@ -51,7 +51,8 @@ class AreteRootNode {
         label: button.label,
         url: button.url,
         cb: (url: string) => {
-          this.closeToolbar();
+          if (url === "COPY") this.showHint(ev.pageX, ev.pageY, "Copied");
+          else this.closeToolbar();
           Actions.callback(url, selectedText);
         },
       });
@@ -107,6 +108,24 @@ class AreteRootNode {
     this.root.innerHTML = "";
     this.targetHit = null;
     this.onClose();
+  }
+  private showHint(x: number, y: number, hint: string) {
+    this.root.removeChild(this.root.getElementById("toolbar")!);
+    const element = this.createHint(hint);
+    element.style.top = y.toString() + "px";
+    element.style.left = x.toString() + "px";
+    this.root.appendChild(element);
+    this.targetHit = null;
+    setTimeout(() => {
+      this.root.innerHTML = "";
+      this.onClose();
+    }, 1000);
+  }
+  private createHint(hint: string) {
+    const element = document.createElement("div");
+    element.className = "hint";
+    element.innerHTML = hint;
+    return element;
   }
 }
 

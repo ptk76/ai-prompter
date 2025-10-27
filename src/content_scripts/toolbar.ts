@@ -6,6 +6,7 @@ class Toolbar {
   private buttonContainer: HTMLDivElement;
   constructor(x: number, y: number, buttons: ButtonProps[], iconOnly: boolean) {
     this.rootNode = document.createElement("div");
+    this.rootNode.id = "toolbar";
     this.rootNode.className = "toolbar";
     this.rootNode.style.top = y.toString() + "px";
     this.rootNode.style.left = x.toString() + "px";
