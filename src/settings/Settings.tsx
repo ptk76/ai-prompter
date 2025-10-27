@@ -118,9 +118,20 @@ function SettingsUI() {
         </Section>
         <Section style={{ padding: "20px" }}>
           <div className={style.copyright}>
-            © 2025 Arete - Smart text selection with instant AI actions. All
-            rights reserved. <br />
-            Made with ❤️ for better text productivity
+            © 2025{" "}
+            <a className={style.link} href="https://getarete.app/">
+              Arete - Smart text selection with instant AI actions
+            </a>
+            . All rights reserved. <br />
+            Made with ❤️ in Wrocław & Zagościniec, Poland 🇵🇱 <br />
+            <br />
+            <a
+              className={style.link}
+              href="https://docs.google.com/document/d/1JUBJ5ZcTH86TQKCKLKEg1eIdPlvLXnXizKxS-LIdo3g/edit"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
           </div>
         </Section>
       </div>

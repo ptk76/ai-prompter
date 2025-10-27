@@ -110,6 +110,13 @@ body {
   font-size: 14px;
 }
 
+.link {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 .buttons {
   display: flex;
 }
