@@ -35,7 +35,7 @@ class AreteRootNode {
     if (!selection) return;
 
     const selectedText = selection.toString();
-    if (!selectedText || selectedText === "") return;
+    if (!selectedText || selectedText.trim() === "") return;
 
     if (await this.doNotShow()) return;
 
