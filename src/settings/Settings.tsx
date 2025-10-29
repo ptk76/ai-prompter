@@ -110,9 +110,9 @@ function SettingsUI() {
             </div>
             <a
               className={style.inspirationLink}
-              href="mailto:getarete@gmail.com"
+              href="mailto:hi@getarete.app"
             >
-              📧 getarete@gmail.com
+              📧 hi@getarete.app
             </a>
           </div>
         </Section>
