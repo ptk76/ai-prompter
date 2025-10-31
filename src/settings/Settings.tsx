@@ -5,6 +5,7 @@ import { type SettingsButtonType } from "../storage/settings";
 import style from "./Settings.module.css";
 import Section from "./Section";
 import DragAndDrop from "./DragAndDrop";
+import Exclusions from "./Exclusions";
 function SettingsUI() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const setupDatabase = async () => {
@@ -64,13 +65,13 @@ function SettingsUI() {
           )}
           <div className={style.buttons}>
             <button
-              className={style.settingButton + " " + style.toLeft}
+              className={style.settingButton + " " + style.toRight}
               disabled
             >
               ➕ Add Custom
             </button>
             <button
-              className={style.settingButton + " " + style.toRight}
+              className={style.settingButton + " " + style.toLeft}
               onClick={reset}
             >
               🔄 Reset to Default Settings
@@ -96,10 +97,14 @@ function SettingsUI() {
               <code className={style.inspirationCode}>%s</code> in URLs as a
               placeholder for your selected text. Example:{" "}
               <code className={style.inspirationCode}>
-                https://www.perplexity.ai/search?q="Translate the text into Spanish: %s"
+                https://www.perplexity.ai/search?q="Translate the text into
+                Spanish: %s"
               </code>
             </p>
           </div>
+        </Section>
+        <Section title="🚫 Exclusions">
+          <Exclusions />
         </Section>
         <Section title="❓ Help & Support">
           <div className={style.inspiration}>

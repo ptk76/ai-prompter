@@ -9,9 +9,8 @@ export type SettingsButtonType = {
   disabled: boolean;
 };
 
-export type SettingsType = {
-  version: number;
-  buttons: SettingsButtonType[];
+export type WhitelistType = {
+  pattern: string;
 };
 
 class Settings {
@@ -21,7 +20,7 @@ class Settings {
     this.storage = storage;
   }
 
-  async getButtons(): Promise<SettingsButtonType[]> {
+  async getActions(): Promise<SettingsButtonType[]> {
     const settingFile = await this.storage.get("settings");
     if (!settingFile) return [];
 
@@ -32,12 +31,27 @@ class Settings {
       return [];
     }
   }
+  async getWhitelist(): Promise<WhitelistType[]> {
+    const whitelistFile = await this.storage.get("whitelist");
+    if (!whitelistFile) return [];
+
+    try {
+      const whitelist = JSON.parse(whitelistFile);
+      return whitelist.urls;
+    } catch (_) {
+      return [];
+    }
+  }
 }
 
-async function getSettingButtons() {
+export async function getActions() {
   const storage = new Storage();
   const setting = new Settings(storage);
-  return await setting.getButtons();
+  return await setting.getActions();
 }
 
-export default getSettingButtons;
+export async function getWhitelist() {
+  const storage = new Storage();
+  const setting = new Settings(storage);
+  return await setting.getWhitelist();
+}

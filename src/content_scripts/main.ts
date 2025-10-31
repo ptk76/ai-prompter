@@ -1,7 +1,7 @@
 import Actions from "./actions";
 import type { ButtonProps } from "./button";
 import createToolbar from "./toolbar";
-import getSettingButtons from "./settings";
+import { getActions, getWhitelist } from "./settings";
 
 class AreteRootNode {
   private targetHit: HTMLElement | null = null;
@@ -88,27 +88,43 @@ class AreteRootNode {
   }
 
   private async doNotShow() {
-    if (window.location.href.includes("docs.google.com/spreadsheets"))
-      return true;
+    const whitelist = await this.getWhitelist();
+    for (const domain of whitelist) {
+      if (window.location.href.includes(domain.pattern)) return true;
+    }
     return false;
   }
 
   private async getButtons() {
-    const settingButtons = await getSettingButtons();
+    const settingButtons = await getActions();
     if (settingButtons.length === 0) {
       const responce = await chrome.runtime.sendMessage({
-        type: "fix-settings",
+        type: "fix-actions",
       });
       if (responce !== "settings-ready") return [];
-      return await getSettingButtons();
+      return await getActions();
     }
     return settingButtons;
   }
+
+  private async getWhitelist() {
+    const whitelist = await getWhitelist();
+    if (whitelist.length === 0) {
+      const responce = await chrome.runtime.sendMessage({
+        type: "fix-whitelist",
+      });
+      if (responce !== "settings-ready") return [];
+      return await getWhitelist();
+    }
+    return whitelist;
+  }
+
   private closeToolbar() {
     this.root.innerHTML = "";
     this.targetHit = null;
     this.onClose();
   }
+
   private showHint(x: number, y: number, hint: string) {
     this.root.removeChild(this.root.getElementById("toolbar")!);
     const element = this.createHint(hint);

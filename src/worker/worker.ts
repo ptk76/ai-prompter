@@ -3,9 +3,11 @@ import getDefaultSettings from "./default_settings";
 chrome.runtime.onInstalled.addListener(async (details: any) => {
   const settings = getDefaultSettings();
   if (details.reason === "install") {
-    settings.install();
+    settings.installActions();
+    settings.installWhitelist();
   } else {
-    await settings.update();
+    await settings.updateActions();
+    await settings.updateWhitelist();
   }
   return true;
 });
@@ -14,10 +16,13 @@ chrome.runtime.onMessage.addListener(async (request, _, sendResponse) => {
   if (request.type === "open-settings") {
     openSettingPage();
     sendResponse();
-  } else if (request.type === "fix-settings") {
+  } else if (request.type === "fix-actions") {
     const settings = getDefaultSettings();
-
-    settings.install();
+    settings.installActions();
+    sendResponse("settings-ready");
+  } else if (request.type === "fix-whitelist") {
+    const settings = getDefaultSettings();
+    settings.installWhitelist();
     sendResponse("settings-ready");
   }
 });

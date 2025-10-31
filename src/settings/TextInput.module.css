@@ -1,16 +1,7 @@
 .textInput {
   display: flex;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.label {
-  font-weight: 600;
-  color: #555;
-  margin-left: 0px;
-  margin-right: auto;
-  margin-top: 10px;
-  width: 34%;
+  flex-direction: column;
+  width: 66%;
 }
 
 .hint {
@@ -35,10 +26,8 @@
   cursor: not-allowed;
 }
 
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-  width: 66%;
-  margin-left: auto;
-  margin-right: 0px;
+.inputField:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }

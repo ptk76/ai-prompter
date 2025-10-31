@@ -55,19 +55,23 @@ function Action(props: {
         />
         <div className={buttonProps.disabled ? style.blur : ""}>
           <div className={style.inputGroup}>
-            <TextInput
-              label="Name:"
-              onChange={onLabelChange}
-              defaultValue={buttonProps.label}
-              placeholder="Action name"
-            />
-            <TextInput
-              label="URL:"
-              onChange={onUrlChange}
-              defaultValue={url}
-              hint={hint}
-              disabled={isSpecialAction}
-            />
+            <div className={style.inputContainer}>
+              <div className={style.label}>Name:</div>
+              <TextInput
+                onChange={onLabelChange}
+                defaultValue={buttonProps.label}
+                placeholder="Action name"
+              />
+            </div>
+            <div className={style.inputContainer}>
+              <div className={style.label}>URL:</div>
+              <TextInput
+                onChange={onUrlChange}
+                defaultValue={url}
+                hint={hint}
+                disabled={isSpecialAction}
+              />
+            </div>
           </div>
         </div>
         {buttonProps.disabled && <div className={style.overlay} />}
