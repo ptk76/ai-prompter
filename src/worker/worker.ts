@@ -4,10 +4,10 @@ chrome.runtime.onInstalled.addListener(async (details: any) => {
   const settings = getDefaultSettings();
   if (details.reason === "install") {
     settings.installActions();
-    settings.installWhitelist();
+    settings.installBlacklist();
   } else {
     await settings.updateActions();
-    await settings.updateWhitelist();
+    await settings.updateBlacklist();
   }
   return true;
 });
@@ -20,9 +20,9 @@ chrome.runtime.onMessage.addListener(async (request, _, sendResponse) => {
     const settings = getDefaultSettings();
     settings.installActions();
     sendResponse("settings-ready");
-  } else if (request.type === "fix-whitelist") {
+  } else if (request.type === "fix-blacklist") {
     const settings = getDefaultSettings();
-    settings.installWhitelist();
+    settings.installBlacklist();
     sendResponse("settings-ready");
   }
 });

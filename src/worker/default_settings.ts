@@ -1,5 +1,5 @@
 import DEFAULT_ACTIONS from "./default_actions.json";
-import DEFAULT_WHITELIST from "./default_whitelist.json";
+import DEFAULT_BLACKLIST from "./default_blacklist.json";
 
 class Storage {
   get(key: string): Promise<string> {
@@ -28,8 +28,8 @@ class DefaultSettings {
     this.storage.set("settings", JSON.stringify(DEFAULT_ACTIONS));
   }
 
-  installWhitelist() {
-    this.storage.set("whitelist", JSON.stringify(DEFAULT_WHITELIST));
+  installBlacklist() {
+    this.storage.set("blacklist", JSON.stringify(DEFAULT_BLACKLIST));
   }
 
   async updateActions() {
@@ -49,20 +49,20 @@ class DefaultSettings {
     }
   }
 
-  async updateWhitelist() {
-    const whitelistFile = await this.storage.get("whitelist");
-    if (!!!whitelistFile) {
-      this.installWhitelist();
+  async updateBlacklist() {
+    const blacklistFile = await this.storage.get("blacklist");
+    if (!!!blacklistFile) {
+      this.installBlacklist();
       return;
     }
     try {
-      const settings = JSON.parse(whitelistFile);
-      if (settings.version !== DEFAULT_WHITELIST.version) {
+      const settings = JSON.parse(blacklistFile);
+      if (settings.version !== DEFAULT_BLACKLIST.version) {
         // TO DO - converter
-        this.installWhitelist();
+        this.installBlacklist();
       }
     } catch {
-      this.installWhitelist();
+      this.installBlacklist();
     }
   }
 }

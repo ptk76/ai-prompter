@@ -1,13 +1,34 @@
+import { useRef } from "react";
 import style from "./Exclusions.module.css";
 import TextInput from "./TextInput";
+import type { BlacklistUrlType } from "../storage/settings";
 
-function Exclusions() {
-  const onLabelChange = (value: string) => {
-    console.debug(value);
-  };
+function Exclusions(props: {
+  blacklist: BlacklistUrlType[] | null | undefined;
+  addDomain: (domain: string) => void;
+}) {
+  const domainInput = useRef(null);
   const onAddDomain = () => {
-    console.debug("ADD");
+    if (!domainInput.current) return;
+    const element = domainInput.current as HTMLInputElement;
+    props.addDomain(element.value);
+    element.value = "";
   };
+  const getUrls = () => {
+    if (!props.blacklist) return <></>;
+
+    let result = [];
+    for (const url of props.blacklist) {
+      result.push(
+        <div className={style.urlContainer}>
+          <button className={style.trash}> {!url.default && "🗑️"}</button>
+          <div className={style.url}>{url.pattern}</div>
+        </div>
+      );
+    }
+    return result;
+  };
+
   return (
     <div className={style.container}>
       <div className={style.desc}>
@@ -17,8 +38,9 @@ function Exclusions() {
       </div>
       <div className={style.inputContainer}>
         <TextInput
-          onChange={onLabelChange}
+          onChange={() => {}}
           placeholder="example.com or mail.google.com"
+          ref={domainInput}
         />
         <button
           className={style.button + " " + style.toRight}
@@ -27,6 +49,7 @@ function Exclusions() {
           ➕ Add Domain
         </button>
       </div>
+      {getUrls()}
       <div className={style.hint}>
         💡{" "}
         <strong className={style.black}>

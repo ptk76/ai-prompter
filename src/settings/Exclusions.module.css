@@ -1,5 +1,4 @@
-.container {
-}
+.container {}
 
 .desc {
   font-size: 16px;
@@ -9,7 +8,7 @@
   text-align: center;
 }
 
-.hint{
+.hint {
   margin: 0;
   box-sizing: border-box;
   font-size: 14px;
@@ -23,7 +22,7 @@
   line-height: 1.6;
 }
 
-.black{
+.black {
   color: #333;
 }
 
@@ -35,6 +34,14 @@
   font-family: 'Courier New', monospace;
   font-size: 13px;
   color: #e91e63;
+}
+
+.url {
+  background: #fff;
+  padding: 0px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #333;
 }
 
 .button {
@@ -62,4 +69,26 @@
 .inputContainer {
   display: flex;
   width: 100%;
+  margin-bottom: 15px;
+}
+
+.urlContainer {
+  display: flex;
+}
+
+.trash {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  width: 32px;
+}
+
+.trash:hover {
+  transform: translateY(-2px);
+  background: #333;
+  color: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }

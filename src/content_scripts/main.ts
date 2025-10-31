@@ -1,7 +1,7 @@
 import Actions from "./actions";
 import type { ButtonProps } from "./button";
 import createToolbar from "./toolbar";
-import { getActions, getWhitelist } from "./settings";
+import { getActions, getBlacklist } from "./settings";
 
 class AreteRootNode {
   private targetHit: HTMLElement | null = null;
@@ -88,8 +88,8 @@ class AreteRootNode {
   }
 
   private async doNotShow() {
-    const whitelist = await this.getWhitelist();
-    for (const domain of whitelist) {
+    const blacklist = await this.getBlacklist();
+    for (const domain of blacklist) {
       if (window.location.href.includes(domain.pattern)) return true;
     }
     return false;
@@ -98,25 +98,33 @@ class AreteRootNode {
   private async getButtons() {
     const settingButtons = await getActions();
     if (settingButtons.length === 0) {
-      const responce = await chrome.runtime.sendMessage({
+      const response = await chrome.runtime.sendMessage({
         type: "fix-actions",
       });
-      if (responce !== "settings-ready") return [];
+      if (response !== "settings-ready") return [];
       return await getActions();
     }
     return settingButtons;
   }
 
-  private async getWhitelist() {
-    const whitelist = await getWhitelist();
-    if (whitelist.length === 0) {
-      const responce = await chrome.runtime.sendMessage({
-        type: "fix-whitelist",
+  private async getBlacklist() {
+    const blacklist = await getBlacklist();
+    if (blacklist.length === 0) {
+      console.log(
+        "CHR",
+        chrome,
+        "RUN",
+        chrome.runtime,
+        "MSG",
+        chrome.runtime.sendMessage
+      );
+      const response = await chrome.runtime.sendMessage({
+        type: "fix-blacklist",
       });
-      if (responce !== "settings-ready") return [];
-      return await getWhitelist();
+      if (response !== "settings-ready") return [];
+      return await getBlacklist();
     }
-    return whitelist;
+    return blacklist;
   }
 
   private closeToolbar() {

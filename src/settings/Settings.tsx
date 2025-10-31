@@ -20,6 +20,10 @@ function SettingsUI() {
     settings?.setButton(button);
   };
 
+  const addDomain = (url: string) => {
+    settings?.addToBlacklist({ pattern: url, default: false });
+  };
+
   const getButtons = (buttons: SettingsButtonType[] | null) => {
     if (!buttons) return [];
 
@@ -37,7 +41,7 @@ function SettingsUI() {
   };
 
   const reorder = (startIndex: number, endIndex: number) => {
-    settings?.reorder(startIndex, endIndex);
+    settings?.reorderButtons(startIndex, endIndex);
   };
 
   const reset = async () => {
@@ -104,7 +108,10 @@ function SettingsUI() {
           </div>
         </Section>
         <Section title="🚫 Exclusions">
-          <Exclusions />
+          <Exclusions
+            blacklist={settings?.getBlacklist()}
+            addDomain={addDomain}
+          />
         </Section>
         <Section title="❓ Help & Support">
           <div className={style.inspiration}>

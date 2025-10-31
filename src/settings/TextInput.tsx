@@ -6,6 +6,7 @@ function TextInput(props: {
   placeholder?: string;
   hint?: string;
   disabled?: boolean;
+  ref?: any;
   onChange: (value: string) => void;
 }) {
   return (
@@ -20,6 +21,7 @@ function TextInput(props: {
         }
         placeholder={props.placeholder}
         disabled={props.disabled}
+        ref={props.ref}
       />
       {props.hint && <div className={style.hint}>{props.hint}</div>}
     </div>

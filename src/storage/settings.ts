@@ -14,9 +14,20 @@ export type SettingsType = {
   buttons: SettingsButtonType[];
 };
 
+type BlacklistType = {
+  version: number;
+  urls: BlacklistUrlType[];
+};
+
+export type BlacklistUrlType = {
+  pattern: string;
+  default: boolean;
+};
+
 class Settings {
   private storage: Storage;
   private settings: SettingsType | null = null;
+  private blacklist: BlacklistType | null = null;
   private saveInProgress = -1;
 
   constructor(storage: Storage) {
@@ -25,6 +36,8 @@ class Settings {
   async init() {
     const settingFile = await this.storage.get("settings");
     if (settingFile) this.settings = JSON.parse(settingFile);
+    const blacklistFile = await this.storage.get("blacklist");
+    if (blacklistFile) this.blacklist = JSON.parse(blacklistFile);
   }
 
   save(delay = 5000) {
@@ -33,6 +46,10 @@ class Settings {
       this.storage.set("settings", JSON.stringify(this.settings));
       this.saveInProgress = -1;
     }, delay);
+  }
+
+  saveBlacklist() {
+    this.storage.set("blacklist", JSON.stringify(this.blacklist));
   }
 
   getButtons() {
@@ -46,7 +63,21 @@ class Settings {
     this.save(1000);
   }
 
-  reorder(startIndex: number, endIndex: number) {
+  getBlacklist() {
+    if (!!!this.blacklist) return null;
+    return this.blacklist.urls;
+  }
+
+  addToBlacklist(newUrl: BlacklistUrlType) {
+    console.debug("ADD", newUrl);
+    if (!!!this.blacklist) return;
+    const index = this.blacklist.urls.length;
+    this.blacklist.urls[index] = newUrl;
+    console.debug("new wl", this.blacklist);
+    this.saveBlacklist();
+  }
+
+  reorderButtons(startIndex: number, endIndex: number) {
     if (!!!this.settings) return;
     const newOrder = Array.from(this.settings.buttons);
     const [removed] = newOrder.splice(startIndex, 1);

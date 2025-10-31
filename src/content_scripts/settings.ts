@@ -9,7 +9,7 @@ export type SettingsButtonType = {
   disabled: boolean;
 };
 
-export type WhitelistType = {
+export type BlacklistType = {
   pattern: string;
 };
 
@@ -31,13 +31,13 @@ class Settings {
       return [];
     }
   }
-  async getWhitelist(): Promise<WhitelistType[]> {
-    const whitelistFile = await this.storage.get("whitelist");
-    if (!whitelistFile) return [];
+  async getBlacklist(): Promise<BlacklistType[]> {
+    const blacklistFile = await this.storage.get("blacklist");
+    if (!blacklistFile) return [];
 
     try {
-      const whitelist = JSON.parse(whitelistFile);
-      return whitelist.urls;
+      const blacklist = JSON.parse(blacklistFile);
+      return blacklist.urls;
     } catch (_) {
       return [];
     }
@@ -50,8 +50,8 @@ export async function getActions() {
   return await setting.getActions();
 }
 
-export async function getWhitelist() {
+export async function getBlacklist() {
   const storage = new Storage();
   const setting = new Settings(storage);
-  return await setting.getWhitelist();
+  return await setting.getBlacklist();
 }
