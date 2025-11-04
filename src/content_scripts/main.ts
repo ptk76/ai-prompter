@@ -161,6 +161,7 @@ rootNode.style.zIndex = "1000";
 rootNode.style.top = "0px";
 rootNode.style.left = "0px";
 rootNode.style.userSelect = "none";
+rootNode.style.visibility = "visible";
 
 new AreteRootNode(rootNode.attachShadow({ mode: "open" }), () => {
   rootNode.remove();
