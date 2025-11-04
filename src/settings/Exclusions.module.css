@@ -76,18 +76,21 @@
   display: flex;
 }
 
+.empty {
+  width: 32px;
+}
+
 .trash {
   background: transparent;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 13px;
+  font-size: 14px;
   width: 32px;
 }
 
 .trash:hover {
-  transform: translateY(-2px);
   background: #333;
   color: white;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);

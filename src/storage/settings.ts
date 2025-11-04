@@ -64,16 +64,23 @@ class Settings {
   }
 
   getBlacklist() {
-    if (!!!this.blacklist) return null;
+    if (!!!this.blacklist) return [];
     return this.blacklist.urls;
   }
 
   addToBlacklist(newUrl: BlacklistUrlType) {
-    console.debug("ADD", newUrl);
     if (!!!this.blacklist) return;
     const index = this.blacklist.urls.length;
     this.blacklist.urls[index] = newUrl;
-    console.debug("new wl", this.blacklist);
+    this.saveBlacklist();
+  }
+
+  removeFromBlacklist(pattern: string) {
+    if (!!!this.blacklist) return;
+    const newUrls = this.blacklist.urls.filter(
+      (url) => url.pattern !== pattern
+    );
+    this.blacklist.urls = newUrls;
     this.saveBlacklist();
   }
 

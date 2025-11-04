@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Action from "./Action";
-import Settings from "../storage/settings";
+import Settings, { type BlacklistUrlType } from "../storage/settings";
 import { type SettingsButtonType } from "../storage/settings";
 import style from "./Settings.module.css";
 import Section from "./Section";
@@ -8,8 +8,12 @@ import DragAndDrop from "./DragAndDrop";
 import Exclusions from "./Exclusions";
 function SettingsUI() {
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [blacklist, setBlacklist] = useState<BlacklistUrlType[] | null>([]);
+
   const setupDatabase = async () => {
-    setSettings(await Settings.getInstance());
+    const settings = await Settings.getInstance();
+    setSettings(settings);
+    setBlacklist(settings.getBlacklist());
   };
   useEffect(() => {
     setupDatabase();
@@ -21,7 +25,15 @@ function SettingsUI() {
   };
 
   const addDomain = (url: string) => {
-    settings?.addToBlacklist({ pattern: url, default: false });
+    if (!settings) return;
+    settings.addToBlacklist({ pattern: url, default: false });
+    setBlacklist([...settings.getBlacklist()]);
+  };
+
+  const removeDomain = (pattern: string) => {
+    if (!!!settings) return;
+    settings.removeFromBlacklist(pattern);
+    setBlacklist([...settings.getBlacklist()]);
   };
 
   const getButtons = (buttons: SettingsButtonType[] | null) => {
@@ -109,8 +121,9 @@ function SettingsUI() {
         </Section>
         <Section title="🚫 Exclusions">
           <Exclusions
-            blacklist={settings?.getBlacklist()}
+            blacklist={blacklist ?? []}
             addDomain={addDomain}
+            removeDomain={removeDomain}
           />
         </Section>
         <Section title="❓ Help & Support">
@@ -120,10 +133,7 @@ function SettingsUI() {
               <br />
               We're here to help you get the most out of your text assistant!
             </div>
-            <a
-              className={style.inspirationLink}
-              href="mailto:hi@getarete.app"
-            >
+            <a className={style.inspirationLink} href="mailto:hi@getarete.app">
               📧 hi@getarete.app
             </a>
           </div>

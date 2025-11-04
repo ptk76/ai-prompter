@@ -4,8 +4,9 @@ import TextInput from "./TextInput";
 import type { BlacklistUrlType } from "../storage/settings";
 
 function Exclusions(props: {
-  blacklist: BlacklistUrlType[] | null | undefined;
+  blacklist: BlacklistUrlType[];
   addDomain: (domain: string) => void;
+  removeDomain: (domain: string) => void;
 }) {
   const domainInput = useRef(null);
   const onAddDomain = () => {
@@ -20,8 +21,16 @@ function Exclusions(props: {
     let result = [];
     for (const url of props.blacklist) {
       result.push(
-        <div className={style.urlContainer}>
-          <button className={style.trash}> {!url.default && "🗑️"}</button>
+        <div className={style.urlContainer} key={result.length}>
+          {url.default && <div className={style.empty}></div>}
+          {!url.default && (
+            <button
+              className={style.trash}
+              onClick={() => props.removeDomain(url.pattern)}
+            >
+              {!url.default && "🗑️"}
+            </button>
+          )}
           <div className={style.url}>{url.pattern}</div>
         </div>
       );
