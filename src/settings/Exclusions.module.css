@@ -76,10 +76,6 @@
   display: flex;
 }
 
-.empty {
-  width: 32px;
-}
-
 .trash {
   background: transparent;
   border: none;

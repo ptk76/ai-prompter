@@ -22,15 +22,12 @@ function Exclusions(props: {
     for (const url of props.blacklist) {
       result.push(
         <div className={style.urlContainer} key={result.length}>
-          {url.default && <div className={style.empty}></div>}
-          {!url.default && (
-            <button
-              className={style.trash}
-              onClick={() => props.removeDomain(url.pattern)}
-            >
-              {!url.default && "🗑️"}
-            </button>
-          )}
+          <button
+            className={style.trash}
+            onClick={() => props.removeDomain(url.pattern)}
+          >
+            🗑️
+          </button>
           <div className={style.url}>{url.pattern}</div>
         </div>
       );
