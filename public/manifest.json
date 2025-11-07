@@ -9,11 +9,12 @@
       "matches": ["https://*/*", "https://*/"]
     }
   ],
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "scripting"],
   "background": {
     "service_worker": "/worker.js",
     "type": "module"
   },
+  "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
       "resources": ["assets/*.png", "assets/*.svg", "assets/*.js"],

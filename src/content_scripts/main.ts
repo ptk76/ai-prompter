@@ -16,17 +16,37 @@ class AreteRootNode {
     document.onmouseup = this.onMouseUp.bind(this);
   }
 
+  private goToSleep() {
+    document.onmousedown = null;
+    document.onkeydown = null;
+    document.onmouseup = null;
+  }
+
   private onKeyDown() {
+    if (!chrome.runtime?.id) {
+      this.goToSleep();
+      return;
+    }
     this.closeToolbar();
   }
 
   private onMouseDown(ev: Event) {
+    if (!chrome.runtime?.id) {
+      this.goToSleep();
+      return;
+    }
+
     if (this.isAiPrompter(ev.target as HTMLElement)) return;
     this.closeToolbar();
     this.targetHit = ev.target as HTMLElement;
   }
 
   private async onMouseUp(ev: MouseEvent) {
+    if (!chrome.runtime?.id) {
+      this.goToSleep();
+      return;
+    }
+
     const target = ev.target as HTMLElement;
     const targetHitCopy = this.targetHit != null ? this.targetHit : target;
     this.targetHit = null;
@@ -110,14 +130,6 @@ class AreteRootNode {
   private async getBlacklist() {
     const blacklist = await getBlacklist();
     if (blacklist.length === 0) {
-      console.log(
-        "CHR",
-        chrome,
-        "RUN",
-        chrome.runtime,
-        "MSG",
-        chrome.runtime.sendMessage
-      );
       const response = await chrome.runtime.sendMessage({
         type: "fix-blacklist",
       });
