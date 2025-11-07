@@ -21,7 +21,7 @@
       "id": 2,
       "icon": "🔮",
       "label": "Perplexity",
-      "url": "https://www.perplexity.ai/search?q=\"Translate the text into Polish: %s\"",
+      "url": "https://www.perplexity.ai/search?q=\"Explain that: %s\"",
       "type": "custom",
       "disabled": false
     },
