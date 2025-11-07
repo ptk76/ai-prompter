@@ -9,20 +9,21 @@ chrome.runtime.onInstalled.addListener(async (details: any) => {
     await settings.updateActions();
     await settings.updateBlacklist();
   }
-
-  for (const cs of chrome.runtime.getManifest().content_scripts!) {
-    for (const tab of await chrome.tabs.query({ url: cs.matches })) {
-      if (tab.url?.match(/(chrome|chrome-extension):\/\//gi)) {
-        continue;
+  if (details.reason === "install" || details.reason === "update") {
+    for (const cs of chrome.runtime.getManifest().content_scripts!) {
+      for (const tab of await chrome.tabs.query({ url: cs.matches })) {
+        if (tab.url?.match(/(chrome|chrome-extension):\/\//gi)) {
+          continue;
+        }
+        // const target = { tabId: tab.id, allFrames: cs.all_frames };
+        if (tab.id && cs.js && cs.js[0])
+          chrome.scripting.executeScript({
+            files: cs.js,
+            injectImmediately: true,
+            // world: cs.world, // requires Chrome 111+
+            target: { tabId: tab.id },
+          });
       }
-      // const target = { tabId: tab.id, allFrames: cs.all_frames };
-      if (tab.id && cs.js && cs.js[0])
-        chrome.scripting.executeScript({
-          files: cs.js,
-          injectImmediately: true,
-          // world: cs.world, // requires Chrome 111+
-          target: { tabId: tab.id },
-        });
     }
   }
 
