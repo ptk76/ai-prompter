@@ -60,6 +60,24 @@ class Settings {
   setButton(newButton: SettingsButtonType) {
     if (!!!this.settings) return;
     this.settings.buttons[newButton.id] = newButton;
+    this.save(0);
+  }
+
+  deleteButton(index: number) {
+    if (!!!this.settings) return;
+    this.settings.buttons.splice(index, 1);
+    this.settings.buttons.forEach((btn, index) => (btn.id = index));
+    this.save(0);
+  }
+
+  getButtonNumber() {
+    if (!!!this.settings) return 0;
+    return this.settings.buttons.length;
+  }
+
+  addButton(newButton: SettingsButtonType) {
+    if (!!!this.settings) return;
+    this.settings.buttons.push(newButton);
     this.save(1000);
   }
 

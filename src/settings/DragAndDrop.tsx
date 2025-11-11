@@ -41,6 +41,8 @@ function DragAndDrop(props: {
     props.onReorder(result.source.index, result.destination.index);
   };
 
+  if (props.children.length !== items.length) setItems([...props.children]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">

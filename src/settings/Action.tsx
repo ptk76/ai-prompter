@@ -7,6 +7,7 @@ import ActionHeader from "./ActionHeader";
 function Action(props: {
   button: SettingsButtonType;
   save: (button: SettingsButtonType) => void;
+  delete: (index: number) => void;
 }) {
   const [buttonProps, setButtonProps] = useState(props.button);
 
@@ -52,6 +53,9 @@ function Action(props: {
           disabled={buttonProps.disabled}
           onStatusChange={onStatusChange}
           onIconChange={onIconCHange}
+          onRemove={() =>
+            props.delete(buttonProps.type === "custom" ? buttonProps.id : -1)
+          }
         />
         <div className={buttonProps.disabled ? style.blur : ""}>
           <div className={style.inputGroup}>

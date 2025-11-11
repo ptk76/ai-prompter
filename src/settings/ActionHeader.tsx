@@ -10,6 +10,7 @@ function ActionHeader(props: {
   disabled: boolean;
   onStatusChange: () => void;
   onIconChange: (icon: string) => void;
+  onRemove: () => void;
 }) {
   const getStatusIcon = (disabled: boolean) => (disabled ? "🙈" : "👁️");
   const [icon, setIcon] = useState(props.icon);
@@ -40,6 +41,16 @@ function ActionHeader(props: {
         <button className={style.hide} onClick={onClick}>
           {statusIcon}
         </button>
+        <div
+          className={[
+            style.icon,
+            style.trash,
+            props.disabled ? style.blur : "",
+          ].join(" ")}
+          onClick={props.onRemove}
+        >
+          🗑️
+        </div>
         <div className={style.dragHandle}>⋮⋮</div>
       </div>
       {overlay &&

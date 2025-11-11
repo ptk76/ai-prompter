@@ -9,11 +9,13 @@ import Exclusions from "./Exclusions";
 function SettingsUI() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [blacklist, setBlacklist] = useState<BlacklistUrlType[] | null>([]);
+  const [buttons, setButtons] = useState<SettingsButtonType[] | null>([]);
 
   const setupDatabase = async () => {
     const settings = await Settings.getInstance();
     setSettings(settings);
     setBlacklist(settings.getBlacklist());
+    setButtons(settings.getButtons());
   };
   useEffect(() => {
     setupDatabase();
@@ -24,8 +26,31 @@ function SettingsUI() {
     settings?.setButton(button);
   };
 
+  const deleteButton = (index: number) => {
+    if (!!!settings) return;
+    if (index < 0) return;
+    settings.deleteButton(index);
+    const btns = settings.getButtons();
+    if (btns) setButtons([...btns]);
+  };
+
+  const addNewButton = () => {
+    if (!!!settings) return;
+    const newButton: SettingsButtonType = {
+      id: settings.getButtonNumber(),
+      icon: "⚡",
+      label: "Custom " + Math.floor(Math.random() * 10000),
+      url: "",
+      type: "custom",
+      disabled: false,
+    };
+    settings.addButton(newButton);
+    const btns = settings.getButtons();
+    if (btns) setButtons([...btns]);
+  };
+
   const addDomain = (url: string) => {
-    if (!settings) return;
+    if (!!!settings) return;
     settings.addToBlacklist({ pattern: url, default: false });
     setBlacklist([...settings.getBlacklist()]);
   };
@@ -36,16 +61,17 @@ function SettingsUI() {
     setBlacklist([...settings.getBlacklist()]);
   };
 
-  const getButtons = (buttons: SettingsButtonType[] | null) => {
-    if (!buttons) return [];
+  const getButtons = (btns: SettingsButtonType[]) => {
+    if (!btns) return [];
 
     let result = [];
-    for (const button of buttons) {
+    for (const button of btns) {
       result.push(
         <Action
           key={button.id.toString()}
           button={button}
           save={saveButton}
+          delete={deleteButton}
         ></Action>
       );
     }
@@ -76,13 +102,13 @@ function SettingsUI() {
         <Section title="⚙️ Edit Tooltip Actions">
           {settings && (
             <DragAndDrop onReorder={reorder}>
-              {getButtons(settings.getButtons())}
+              {getButtons(buttons ?? [])}
             </DragAndDrop>
           )}
           <div className={style.buttons}>
             <button
               className={style.settingButton + " " + style.toRight}
-              disabled
+              onClick={addNewButton}
             >
               ➕ Add Custom
             </button>

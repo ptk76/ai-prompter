@@ -38,6 +38,10 @@
   transform: scale(1.1);
 }
 
+.trash{
+  margin-left: auto;
+}
+
 .hide {
   z-index: 1;
   background: none;
@@ -76,7 +80,6 @@
   user-select: none;
   transition: all 0.2s ease;
   margin-right: 0px;
-  margin-left: auto;
 }
 
 .dragHandle:hover {
