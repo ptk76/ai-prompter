@@ -111,6 +111,7 @@ function SettingsUI() {
             <button
               className={style.settingButton + " " + style.toRight}
               onClick={addNewButton}
+              disabled={buttons && buttons.length >= 7}
             >
               ➕ Add Custom
             </button>
