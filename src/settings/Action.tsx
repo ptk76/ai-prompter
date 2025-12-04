@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./Action.module.css";
 import type { SettingsButtonType } from "../storage/settings";
 import TextInput from "./TextInput";
@@ -6,10 +6,16 @@ import ActionHeader from "./ActionHeader";
 
 function Action(props: {
   button: SettingsButtonType;
+  index: number;
   save: (button: SettingsButtonType) => void;
   delete: (index: number) => void;
 }) {
   const [buttonProps, setButtonProps] = useState(props.button);
+
+  // Sync local state when props.button changes
+  useEffect(() => {
+    setButtonProps(props.button);
+  }, [props.button]);
 
   const saveButton = (button: SettingsButtonType) => {
     setButtonProps(button);
@@ -54,7 +60,7 @@ function Action(props: {
           onStatusChange={onStatusChange}
           onIconChange={onIconCHange}
           onRemove={() =>
-            props.delete(buttonProps.type === "custom" ? buttonProps.id : -1)
+            props.delete(buttonProps.type === "custom" ? props.index : -1)
           }
         />
         <div className={buttonProps.disabled ? style.blur : ""}>

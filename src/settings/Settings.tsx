@@ -65,11 +65,13 @@ function SettingsUI() {
     if (!btns) return [];
 
     let result = [];
-    for (const button of btns) {
+    for (let i = 0; i < btns.length; i++) {
+      const button = btns[i];
       result.push(
         <Action
-          key={button.id.toString()}
+          key={button.type + "-" + button.label}
           button={button}
+          index={i}
           save={saveButton}
           delete={deleteButton}
         ></Action>

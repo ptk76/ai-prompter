@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useState, useEffect, type JSX } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 // a little function to help us with reordering the result
@@ -33,25 +33,26 @@ function DragAndDrop(props: {
       result.source.index,
       result.destination.index
     );
-    const newItems = newOrder.map((item, index) => {
-      item.props.button.id = index;
-      return item;
-    });
-    setItems(newItems);
+    setItems(newOrder);
     props.onReorder(result.source.index, result.destination.index);
   };
 
-  if (props.children.length !== items.length) setItems([...props.children]);
+  // Sync items with props.children when they change
+  useEffect(() => {
+    setItems([...props.children]);
+  }, [props.children]);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {items.map((child: any, index: number) => (
+            {items.map((child: any, index: number) => {
+              const buttonId = child.props?.button?.id ?? index;
+              return (
               <Draggable
-                key={"key_" + index.toString()}
-                draggableId={"drag_" + index.toString()}
+                key={"key_" + buttonId.toString()}
+                draggableId={"drag_" + buttonId.toString()}
                 index={index}
               >
                 {(provided) => (
@@ -67,7 +68,8 @@ function DragAndDrop(props: {
                   </div>
                 )}
               </Draggable>
-            ))}
+            );
+            })}
 
             {provided.placeholder}
           </div>
